@@ -1,0 +1,45 @@
+@import "~bootstrap";
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
+@import "~dropzone/dist/min/dropzone.min.css";
+@import "./admin.min.css";
+
+
+.upload--block{
+    label {
+        display: block;
+        border: 1px solid #ddd;
+        padding: 40px;
+        text-align: center;
+    }
+}
+
+#gallery--photos__upload, #gallery--photos__show, #slider--photos__upload, #slider--photos__show{
+    margin: 0 -10px;
+    > img {
+        width: 15%;
+        height: 250px;
+        margin: 10px;
+        border: 1px solid #ddd;
+        object-fit: cover;
+    }
+}
+
+#mainImageAvatar img, #bannerFirstPreview img, #bannerSecondPreview img {
+    width: 300px;
+    object-fit: cover;
+}
+
+#gallery--photos__show, #slider--photos__show {
+    display: flex;
+    > div {
+        width: 15%;
+        margin: 10px;
+        > img {
+            width: 100% !important;
+        }
+
+        > a {
+            cursor: pointer;
+        }
+    }
+}

@@ -1,0 +1,53 @@
+@extends('layouts.app')
+
+@section('headline')
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Sliders</h1>
+
+        <a class="btn btn-success" href="{{ route('sliders.create') }}">+ Create</a>
+    </div>
+@endsection
+
+
+@section('content')
+    <div class="card shadow mb-4 col-12">
+        <div class="card-body">
+            <div id="gallery--photos__show">
+                @foreach($sliders as $slider)
+                    <div class="img-content">
+                        <img src="{{ $slider->path }}" alt="" height="200px" style="object-fit: cover">
+                        <a class="delete-image d-block" data-id="{{ $slider->id }}">
+                            <i class="fa fa-trash text-danger"></i>
+                            Remove Image
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+
+            @if(!$sliders->count())
+                <p class="text-center">We have no any result :(</p>
+            @endif
+            </div>
+        </div>
+    </div>
+@endsection
+
+@push('js')
+    <script type="text/javascript">
+        $('.delete-image').click(function () {
+            let id = $(this).attr('data-id');
+            let self = $(this);
+
+            if(confirm('Are you sure want to delete this image?')) {
+                $.ajax({
+                    url: "sliders/" + id,
+                    type: "DELETE",
+                    success: function () {
+                        self.closest('div.img-content').remove();
+                    }
+                })
+            }
+        })
+    </script>
+@endpush
