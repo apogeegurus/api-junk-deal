@@ -29,7 +29,7 @@
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('services.index') }}">
-            <i class="fas fa-cog"></i>
+            <i class="fas fa-server"></i>
             <span>Services</span></a>
     </li>
 
@@ -48,7 +48,7 @@
     <li class="nav-item">
         <a class="nav-link" href="{{ route('sliders.index') }}">
             <i class="fas fa-image"></i>
-            <span>Sliders</span></a>
+            <span>Hero Slides</span></a>
     </li>
 
 
@@ -69,8 +69,8 @@
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('settings.index') }}">
-            <i class="fas fa-cog"></i>
-            <span>Settings</span></a>
+            <i class="fas fa-info-circle"></i>
+            <span>Info</span></a>
     </li>
 
     <!-- Sidebar Toggler (Sidebar) -->
