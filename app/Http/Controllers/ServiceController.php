@@ -9,6 +9,7 @@ use App\Models\ServiceImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class ServiceController extends Controller
 {
@@ -49,7 +50,8 @@ class ServiceController extends Controller
         $mainImage  = $request->file('mainImage');
         $ext = $mainImage->getClientOriginalExtension();
         $fileName = Str::random(32) . ".{$ext}";
-        Storage::disk('public')->putFileAs("services/main", $mainImage, $fileName);
+        $mainImage = Image::make($mainImage)->fit(375, 240)->encode($ext);
+        Storage::disk('public')->put("services/main/{$fileName}", $mainImage->__toString());
 
         $data = ['main_image' => $fileName] + $serviceData;
         $service = Service::query()->create($data);
@@ -65,7 +67,8 @@ class ServiceController extends Controller
                 'file_name'  => $fileName
             ]);
 
-            Storage::disk('public')->putFileAs("services/{$service->id}", $file, $fileName);
+            $file = Image::make($file)->fit(640, 480)->encode($ext)->__toString();
+            Storage::disk('public')->put("services/{$service->id}/$fileName", $file);
         }
 
         return redirect()->route('services.index');
@@ -119,7 +122,8 @@ class ServiceController extends Controller
             Storage::disk('public')->delete("services/main/{$service->main_image}");
             $ext = $mainImage->getClientOriginalExtension();
             $fileName = Str::random(32) . ".{$ext}";
-            Storage::disk('public')->putFileAs("services/main", $mainImage, $fileName);
+            $mainImage = Image::make($mainImage)->fit(375, 240)->encode($ext);
+            Storage::disk('public')->put("services/main/$fileName", $mainImage->__toString());
 
             $serviceData = ['main_image' => $fileName] + $serviceData;
         }
@@ -137,7 +141,8 @@ class ServiceController extends Controller
                     'file_name'  => $fileName
                 ]);
 
-                Storage::disk('public')->putFileAs("services/{$id}", $file, $fileName);
+                $file = Image::make($file)->fit(640, 480)->encode($ext)->__toString();
+                Storage::disk('public')->put("services/{$service->id}/$fileName", $file);
             }
         }
 

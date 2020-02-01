@@ -7,6 +7,7 @@ use App\Models\Slider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class SliderController extends Controller
 {
@@ -42,7 +43,9 @@ class SliderController extends Controller
         $file = $request->file('file');
         $ext  = $file->getClientOriginalExtension();
         $fileName = Str::random(32) . ".{$ext}";
-        Storage::disk('public')->putFileAs("sliders", $file, $fileName);
+        $file = Image::make($file)->fit(1024, 768)->encode('png')->__toString();
+
+        Storage::disk('public')->put("sliders/{$fileName}", $file);
         Slider::query()->create(['file_name' => $fileName]);
 
         return redirect()->route('sliders.index');

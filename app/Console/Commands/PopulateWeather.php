@@ -43,7 +43,7 @@ class PopulateWeather extends Command
         $client = new Client();
         $APPKEY = env('OPENWEATHER_API_KEY');
 
-        $url = "https://api.openweathermap.org/data/2.5/weather?units=metric&appid={$APPKEY}";
+        $url = "https://api.openweathermap.org/data/2.5/weather?units=imperial&appid={$APPKEY}";
 
         foreach ($locations as $location) {
             $lat = $location->lat;
@@ -60,7 +60,7 @@ class PopulateWeather extends Command
                 $weather = $data['weather'][0] ?? [];
 
                 if(!empty($weather)) {
-                    $location->update(['weather_icon' => $weather['icon'] ?? null, 'weather' => $data['main']['temp'] ?? null]);
+                    $location->update(['weather_icon' => $weather['icon'] ?? null, 'weather' => round($data['main']['temp']) ?? null]);
                 }
             }
         }

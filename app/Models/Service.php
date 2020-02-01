@@ -11,6 +11,8 @@ class Service extends Model
 
     protected $fillable = ['title', 'slug', 'sub_title', 'short_description', 'long_description', 'main_image'];
 
+    protected $appends = ['main_image_path'];
+
     /**
      * Return the sluggable configuration array for this model.
      *
@@ -34,6 +36,6 @@ class Service extends Model
 
     public function getMainImagePathAttribute()
     {
-        return '/storage/services/main/' . $this->attributes['main_image'];
+        return url('/storage/services/main/' . $this->attributes['main_image']);
     }
 }

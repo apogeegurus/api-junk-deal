@@ -8,8 +8,10 @@ class LocationSlider extends Model
 {
     protected $fillable = ['location_id', 'file_name'];
 
+    protected $appends = ['path'];
+
     public function getPathAttribute()
     {
-        return '/storage/locations/slider/' . $this->attributes['location_id'] . '/' . $this->attributes['file_name'];
+        return url('/storage/locations/slider/' . $this->attributes['location_id'] . '/' . $this->attributes['file_name']);
     }
 }

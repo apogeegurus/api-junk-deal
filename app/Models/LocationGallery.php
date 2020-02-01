@@ -8,8 +8,10 @@ class LocationGallery extends Model
 {
     protected $fillable = ['location_id', 'file_name'];
 
+    protected $appends = ['path'];
+
     public function getPathAttribute()
     {
-        return '/storage/locations/gallery/' . $this->attributes['location_id'] . '/' . $this->attributes['file_name'];
+        return url('/storage/locations/gallery/' . $this->attributes['location_id'] . '/' . $this->attributes['file_name']);
     }
 }

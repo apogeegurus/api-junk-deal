@@ -8,9 +8,10 @@ class Slider extends Model
 {
     protected $fillable = ['file_name'];
 
+    protected $appends = ['path'];
 
     public function getPathAttribute()
     {
-        return '/storage/sliders/' . $this->attributes['file_name'];
+        return url('/storage/sliders/' . $this->attributes['file_name']);
     }
 }
