@@ -41,7 +41,7 @@
                 </table>
 
                 @if(!$locations->count())
-                    <p class="text-center">We have no any result :(</p>
+                    <p class="text-center">No items created..</p>
                 @endif
 
                 {{ $locations->links() }}
