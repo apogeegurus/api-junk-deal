@@ -15,6 +15,7 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'openweather_api_key' => env('OPENWEATHER_API_KEY', null),
     /*
     |--------------------------------------------------------------------------
     | Application Environment

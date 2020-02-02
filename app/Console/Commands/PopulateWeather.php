@@ -41,7 +41,7 @@ class PopulateWeather extends Command
     {
         $locations = $this->getLocations();
         $client = new Client();
-        $APPKEY = env('OPENWEATHER_API_KEY');
+        $APPKEY = config('app.openweather_api_key');
 
         $url = "https://api.openweathermap.org/data/2.5/weather?units=imperial&appid={$APPKEY}";
 
