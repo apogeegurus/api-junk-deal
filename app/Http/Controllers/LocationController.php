@@ -10,6 +10,7 @@ use App\Models\LocationSlider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class LocationController extends Controller
 {
@@ -67,19 +68,22 @@ class LocationController extends Controller
         $mainImage      = $request->file('main_image');
         $ext            = $mainImage->getClientOriginalExtension();
         $fileNameMain   = Str::random(32) . ".{$ext}";
-        Storage::disk('public')->putFileAs("locations/main", $mainImage, $fileNameMain);
+        $mainImage      = Image::make($mainImage)->fit(375, 240)->encode($ext)->__toString();
+        Storage::disk('public')->put("locations/main/$fileNameMain", $mainImage);
 
 
         $bannerFirst  = $request->file('banner_first');
         $ext          = $bannerFirst->getClientOriginalExtension();
         $fileNameBannerFirst = Str::random(32) . ".{$ext}";
-        Storage::disk('public')->putFileAs("locations/banners", $bannerFirst, $fileNameBannerFirst);
+        $bannerFirst  = Image::make($bannerFirst)->fit(375, 240)->encode($ext)->__toString();
+        Storage::disk('public')->put("locations/banners/$fileNameBannerFirst", $bannerFirst);
 
 
         $bannerSecond  = $request->file('banner_second');
         $ext           = $bannerSecond->getClientOriginalExtension();
         $fileNameBannerSecond = Str::random(32) . ".{$ext}";
-        Storage::disk('public')->putFileAs("locations/banners", $bannerSecond, $fileNameBannerSecond);
+        $bannerSecond  = Image::make($bannerSecond)->fit(375, 240)->encode($ext)->__toString();
+        Storage::disk('public')->put("locations/banners/$fileNameBannerSecond", $bannerSecond);
 
         $data = [
             'main_image' => $fileNameMain,
@@ -149,7 +153,8 @@ class LocationController extends Controller
             Storage::disk('public')->delete("locations/main/{$location->main_image}");
             $ext = $mainImage->getClientOriginalExtension();
             $fileName = Str::random(32) . ".{$ext}";
-            Storage::disk('public')->putFileAs("locations/main", $mainImage, $fileName);
+            $mainImage      = Image::make($mainImage)->fit(375, 240)->encode($ext)->__toString();
+            Storage::disk('public')->put("locations/main/$fileName", $mainImage);
 
             $data = ['main_image' => $fileName] + $data;
         }
@@ -157,9 +162,10 @@ class LocationController extends Controller
 
         if(!empty($bannerFirst)) {
             Storage::disk('public')->delete("locations/banners/{$location->banner_first}");
-            $ext = $mainImage->getClientOriginalExtension();
+            $ext = $bannerFirst->getClientOriginalExtension();
             $fileName = Str::random(32) . ".{$ext}";
-            Storage::disk('public')->putFileAs("locations/banners", $mainImage, $fileName);
+            $bannerFirst  = Image::make($bannerFirst)->fit(640, 480)->encode($ext)->__toString();
+            Storage::disk('public')->put("locations/banners/$fileName", $bannerFirst);
 
             $data = ['banner_first' => $fileName] + $data;
         }
@@ -167,9 +173,10 @@ class LocationController extends Controller
 
         if(!empty($bannerSecond)) {
             Storage::disk('public')->delete("locations/banners/{$location->banner_first}");
-            $ext = $mainImage->getClientOriginalExtension();
+            $ext = $bannerSecond->getClientOriginalExtension();
             $fileName = Str::random(32) . ".{$ext}";
-            Storage::disk('public')->putFileAs("locations/banners", $mainImage, $fileName);
+            $bannerSecond  = Image::make($bannerSecond)->fit(640, 480)->encode($ext)->__toString();
+            Storage::disk('public')->put("locations/banners/$fileName", $bannerSecond);
 
             $data = ['banner_second' => $fileName] + $data;
         }
@@ -221,19 +228,23 @@ class LocationController extends Controller
     public function galleryStore(Request $request, $location)
     {
         $this->validate($request, [
-            'file' => 'required|image'
+            'file' => 'required|array',
+            'file.*' => 'image'
         ]);
 
-        $file = $request->file('file');
+        $files = $request->file('file');
 
-        $ext = $file->getClientOriginalExtension();
-        $fileName = Str::random(32) . ".{$ext}";
-        LocationGallery::query()->create([
-            'location_id' => $location,
-            'file_name'  => $fileName
-        ]);
+        foreach ($files as $file) {
+            $ext = $file->getClientOriginalExtension();
+            $fileName = Str::random(32) . ".{$ext}";
+            LocationGallery::query()->create([
+                'location_id' => $location,
+                'file_name'  => $fileName
+            ]);
 
-        Storage::disk('public')->putFileAs("locations/gallery/{$location}", $file, $fileName);
+            $file  = Image::make($file)->fit(640, 480)->encode($ext)->__toString();
+            Storage::disk('public')->put("locations/gallery/{$location}/$fileName", $file);
+        }
 
         return redirect()->route('locations.gallery', ['location' => $location]);
     }
@@ -271,19 +282,23 @@ class LocationController extends Controller
     public function sliderStore(Request $request, $location)
     {
         $this->validate($request, [
-            'file' => 'required|image'
+            'file' => 'required|array',
+            'file.*' => 'image'
         ]);
 
-        $file = $request->file('file');
+        $files = $request->file('file');
 
-        $ext = $file->getClientOriginalExtension();
-        $fileName = Str::random(32) . ".{$ext}";
-        LocationSlider::query()->create([
-            'location_id' => $location,
-            'file_name'  => $fileName
-        ]);
+        foreach ($files as $file) {
+            $ext = $file->getClientOriginalExtension();
+            $fileName = Str::random(32) . ".{$ext}";
+            LocationSlider::query()->create([
+                'location_id' => $location,
+                'file_name'  => $fileName
+            ]);
 
-        Storage::disk('public')->putFileAs("locations/slider/{$location}", $file, $fileName);
+            $file  = Image::make($file)->fit(640, 480)->encode($ext)->__toString();
+            Storage::disk('public')->put("locations/slider/{$location}/$fileName", $file);
+        }
 
         return redirect()->route('locations.slider', ['location' => $location]);
     }

@@ -20,11 +20,11 @@
                     <label>Image</label>
                     <div class="input-group mb-3">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="mainImage" aria-describedby="inputGroupFileAddon01" name="file">
+                            <input type="file" class="custom-file-input" id="mainImage" aria-describedby="inputGroupFileAddon01" name="file[]" multiple>
                             <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                         </div>
                     </div>
-                    <div id="mainImageAvatar"></div>
+                    <div id="mainImageAvatar" class="d-flex justify-content-between flex-wrap"></div>
 
                     @error('file')
                     <span class="text-danger" role="alert">
@@ -61,9 +61,13 @@
 
         $('#mainImage').change(function () {
             $('#mainImageAvatar').html('');
-            readURL(this.files[0]).then(url => {
-                $('#mainImageAvatar').append(`<img src="${url}"  alt=""/>`);
-            })
+            let files = this.files;
+            filesSize = files.length;
+            for(let i = 0; i < filesSize; i++) {
+                readURL(files[i]).then((urlImage) => {
+                    $('#mainImageAvatar').append(`<img src="${urlImage}"  alt=""/>`);
+                });
+            }
         })
     </script>
 @endpush

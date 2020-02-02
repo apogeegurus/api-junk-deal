@@ -31,6 +31,7 @@
 
 #gallery--photos__show, #slider--photos__show {
     display: flex;
+    flex-wrap: wrap;
     > div {
         width: 15%;
         margin: 10px;

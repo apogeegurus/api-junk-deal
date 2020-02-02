@@ -5,7 +5,7 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Sliders</h1>
 
-        <a class="btn btn-success" href="{{ route('sliders.create') }}">+ Create</a>
+        <a class="btn btn-success" href="{{ route('locations.slider.create', ['location' => request()->segment(2)]) }}">+ Create</a>
     </div>
 @endsection
 
