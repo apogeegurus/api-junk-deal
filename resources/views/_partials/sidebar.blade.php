@@ -61,6 +61,12 @@
     </div>
 
     <li class="nav-item">
+        <a class="nav-link" href="{{ route('contact.index') }}">
+            <i class="fas fa-phone"></i>
+            <span>Contact</span></a>
+    </li>
+
+    <li class="nav-item">
         <a class="nav-link" href="{{ route('settings.index') }}">
             <i class="fas fa-info-circle"></i>
             <span>Info</span></a>

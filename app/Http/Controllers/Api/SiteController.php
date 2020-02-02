@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Quote\Submit;
+use App\Mail\ContactMail;
+use App\Mail\ReplyMail;
+use App\Models\Contact;
 use App\Models\Quote;
 use App\Models\Setting;
 use App\Models\Slider;
@@ -12,6 +15,7 @@ use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class SiteController extends Controller
 {
@@ -84,6 +88,22 @@ class SiteController extends Controller
             Log::info($err->getMessage());
             return response()->json(['message' => 'Something wrong please try again.'], 400);
         }
+
+        return response()->json(['success' => true], 204);
+    }
+
+
+    /**
+     * @param \App\Http\Requests\Contact\Submit $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function contact(\App\Http\Requests\Contact\Submit $request)
+    {
+        $data = $request->only(['name', 'email', 'subject', 'message']);
+        $contact = Contact::query()->create($data);
+
+        Mail::to($data['email'])
+            ->queue(new ContactMail($contact));
 
         return response()->json(['success' => true], 204);
     }

@@ -24,6 +24,8 @@ Auth::routes([
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('dashboard', 'DashboardController@index')->name('home');
+    Route::get('contact', 'DashboardController@contacts')->name('contact.index');
+    Route::post('contact', 'DashboardController@contactReply')->name('contact.reply');
     Route::delete('services/images/{id}', 'ServiceController@destroyImage');
     Route::resource('services', 'ServiceController');
     Route::resource('settings', 'SettingController');
