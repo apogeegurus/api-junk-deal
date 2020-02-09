@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Quote\Submit;
 use App\Mail\ContactMail;
+use App\Mail\Quote\SubmitEmail;
 use App\Mail\ReplyMail;
 use App\Models\Contact;
 use App\Models\Quote;
 use App\Models\Setting;
 use App\Models\Slider;
 use App\Models\Testimonial;
+use App\Models\Video;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
@@ -39,6 +41,14 @@ class SiteController extends Controller
         return response()->json(['testimonials' => $testimonials]);
     }
 
+    public function indexVideos()
+    {
+        $videos = Video::query()
+            ->select('title', 'description', 'video_url')
+            ->get();
+        return response()->json(['videos' => $videos]);
+    }
+
     /**
      * @return \Illuminate\Http\JsonResponse
      */
@@ -61,29 +71,10 @@ class SiteController extends Controller
         $data['date'] = Carbon::createFromTimeString($data['date'])->format('Y-m-d');
 
         try {
-            $client = new Client();
-            $providerKey = env('SMART_MOVING_PROVIDER_KEY');
-            $response = $client->request("POST", "https://api.smartmoving.com/api/leads/from-provider/v2?providerKey=$providerKey", [
-                'headers'  => [
-                    'Content-Type' => 'application/json'
-                ],
-                'form_params' => [
-                    'FullName' => $data['name'],
-                    'PhoneNumber' => $data['phone'],
-                    'Email' => $data['email'],
-                    'DestinationZip' => $data['zip_code'],
-                    'MoveDate' => Carbon::createFromFormat('Y-m-d', $data['date'])->format('Ymd'),
-                    'Notes' => $data['description']
-                ]
-            ]);
+            $quote = Quote::query()->create($data);
 
-            $statusCode = $response->getStatusCode();
-            $response = json_decode($response->getBody(), true);
-
-            if($statusCode === 400)
-                return response()->json(['message' => $response]);
-
-            Quote::query()->create($data);
+            Mail::to($data['email'])
+                ->queue(new SubmitEmail($quote));
         } catch (\Exception $err) {
             Log::info($err->getMessage());
             return response()->json(['message' => 'Something wrong please try again.'], 400);

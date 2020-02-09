@@ -75,14 +75,14 @@ class LocationController extends Controller
         $bannerFirst  = $request->file('banner_first');
         $ext          = $bannerFirst->getClientOriginalExtension();
         $fileNameBannerFirst = Str::random(32) . ".{$ext}";
-        $bannerFirst  = Image::make($bannerFirst)->fit(375, 240)->encode($ext)->__toString();
+        $bannerFirst  = Image::make($bannerFirst)->fit(640, 480)->encode($ext)->__toString();
         Storage::disk('public')->put("locations/banners/$fileNameBannerFirst", $bannerFirst);
 
 
         $bannerSecond  = $request->file('banner_second');
         $ext           = $bannerSecond->getClientOriginalExtension();
         $fileNameBannerSecond = Str::random(32) . ".{$ext}";
-        $bannerSecond  = Image::make($bannerSecond)->fit(375, 240)->encode($ext)->__toString();
+        $bannerSecond  = Image::make($bannerSecond)->fit(640, 480)->encode($ext)->__toString();
         Storage::disk('public')->put("locations/banners/$fileNameBannerSecond", $bannerSecond);
 
         $data = [

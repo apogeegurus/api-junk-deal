@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Quote\ReplyEmail;
 use App\Mail\ReplyMail;
 use App\Models\Contact;
 use App\Models\Quote;
@@ -38,6 +39,26 @@ class DashboardController extends Controller
 
         Mail::to($contact->email)
             ->queue(new ReplyMail($contact));
+
+        return redirect()->back();
+    }
+
+    /**
+     * @param Request $request
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function quoteReply(Request $request)
+    {
+        $this->validate($request, [
+            'message' => 'required',
+            'id' => 'required|exists:quotes,id'
+        ]);
+
+        $quote = Quote::query()->find($request->id);
+        $quote->update(['reply' => $request->message]);
+
+        Mail::to($quote->email)
+            ->queue(new ReplyEmail($quote));
 
         return redirect()->back();
     }

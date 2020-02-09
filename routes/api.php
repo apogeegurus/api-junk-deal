@@ -17,6 +17,7 @@ Route::post('get/quote', 'SiteController@getQuote');
 Route::post('contact', 'SiteController@contact');
 Route::get('info', 'SiteController@index');
 Route::get('info/testimonials', 'SiteController@indexTestimonials');
+Route::get('info/videos', 'SiteController@indexVideos');
 Route::get('info/slider/images', 'SiteController@indexSlider');
 Route::get('services/names', 'ServiceController@indexNames');
 Route::get('services/{slug}/show', 'ServiceController@show');

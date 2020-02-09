@@ -51,6 +51,13 @@
             <span>Hero Slides</span></a>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('videos.index') }}">
+            <i class="fas fa-video"></i>
+            <span>Videos</span>
+        </a>
+    </li>
+
 
     <!-- Divider -->
     <hr class="sidebar-divider">
