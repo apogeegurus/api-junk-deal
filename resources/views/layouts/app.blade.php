@@ -43,7 +43,7 @@
     </div>
 </div>
 <!-- Scripts -->
-<script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
+<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 @stack('js')
 </body>

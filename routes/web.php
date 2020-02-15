@@ -46,4 +46,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('locations', 'LocationController');
     Route::resource('videos', 'VideoController');
+
+    Route::resource('about', 'AboutController');
+    Route::resource('teams', 'TeamController');
+    Route::post('blogs/ckeditor/upload', 'BlogController@upload')->name('ckeditor.upload');
+    Route::resource('blogs', 'BlogController');
 });

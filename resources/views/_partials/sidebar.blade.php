@@ -58,6 +58,18 @@
         </a>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('teams.index') }}">
+            <i class="fas fa-users-cog"></i>
+            <span>Team</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('blogs.index') }}">
+            <i class="far fa-folder-open"></i>
+            <span>Blog</span></a>
+    </li>
+
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -71,6 +83,12 @@
         <a class="nav-link" href="{{ route('contact.index') }}">
             <i class="fas fa-phone"></i>
             <span>Contact</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('about.index') }}">
+            <i class="fas fa-book-reader"></i>
+            <span>About Us</span></a>
     </li>
 
     <li class="nav-item">
