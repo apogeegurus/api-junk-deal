@@ -23,3 +23,6 @@ Route::get('services/names', 'ServiceController@indexNames');
 Route::get('services/{slug}/show', 'ServiceController@show');
 Route::get('locations/names', 'LocationController@indexNames');
 Route::get('locations/{slug}/show', 'LocationController@show');
+
+Route::get('blogs', 'BlogController@index');
+Route::get('blogs/{slug}', 'BlogController@show');
