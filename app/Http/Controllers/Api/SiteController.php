@@ -7,10 +7,12 @@ use App\Http\Requests\Quote\Submit;
 use App\Mail\ContactMail;
 use App\Mail\Quote\SubmitEmail;
 use App\Mail\ReplyMail;
+use App\Models\About;
 use App\Models\Contact;
 use App\Models\Quote;
 use App\Models\Setting;
 use App\Models\Slider;
+use App\Models\Team;
 use App\Models\Testimonial;
 use App\Models\Video;
 use Carbon\Carbon;
@@ -97,5 +99,11 @@ class SiteController extends Controller
             ->queue(new ContactMail($contact));
 
         return response()->json(['success' => true], 204);
+    }
+
+
+    public function indexAbout()
+    {
+        return response()->json(['about' => About::query()->first(), 'members' => Team::query()->get()]);
     }
 }

@@ -19,6 +19,7 @@ Route::get('info', 'SiteController@index');
 Route::get('info/testimonials', 'SiteController@indexTestimonials');
 Route::get('info/videos', 'SiteController@indexVideos');
 Route::get('info/slider/images', 'SiteController@indexSlider');
+Route::get('info/about', 'SiteController@indexAbout');
 Route::get('services/names', 'ServiceController@indexNames');
 Route::get('services/{slug}/show', 'ServiceController@show');
 Route::get('locations/names', 'LocationController@indexNames');
