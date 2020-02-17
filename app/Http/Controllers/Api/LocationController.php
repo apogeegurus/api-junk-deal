@@ -8,6 +8,17 @@ use Illuminate\Http\Request;
 
 class LocationController extends Controller
 {
+    public function index()
+    {
+        $locations = Location::query()
+            ->select('city', 'main_image', 'slug', 'sub_title')
+            ->orderBy('created_at', 'DESC')
+            ->paginate(20);
+
+        return response()->json(['locations' => $locations]);
+    }
+
+
     public function indexNames()
     {
         $locations = Location::query()
