@@ -16,6 +16,7 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item"><b>Name:</b> {{ $testimonial->name }}</li>
                 <li class="list-group-item"><b>Description:</b> {{ $testimonial->description }}</li>
+                <li class="list-group-item"><b>Rating:</b> {{ $testimonial->rating }}</li>
                 <li class="list-group-item"><b>Created At:</b> {{ $testimonial->created_at }}</li>
             </ul>
         </div>

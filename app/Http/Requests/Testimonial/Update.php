@@ -26,6 +26,7 @@ class Update extends FormRequest
         return [
             'name' => 'required|string|max:80',
             'description' => 'required',
+            'rating' => 'required|string'
         ];
     }
 }

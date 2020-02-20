@@ -26,6 +26,7 @@ class Store extends FormRequest
         return [
             'name' => 'required|string|max:80',
             'description' => 'required',
+            'rating' => 'required|string'
         ];
     }
 }

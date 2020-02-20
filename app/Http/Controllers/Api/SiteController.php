@@ -38,7 +38,7 @@ class SiteController extends Controller
     public function indexTestimonials()
     {
         $testimonials = Testimonial::query()
-            ->select('name', 'description')
+            ->select('name', 'description', 'rating')
             ->get();
         return response()->json(['testimonials' => $testimonials]);
     }

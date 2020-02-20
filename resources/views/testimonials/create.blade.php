@@ -36,6 +36,20 @@
                 </div>
 
 
+                <div class="form-group">
+                    <label for="rating">Rating</label>
+                    <select class="form-control @error('rating') is-invalid @enderror" id="rating" name="rating">
+                        <option value="5_star" {{ old('rating') ===  '5_star' ? 'selected' : '' }}>5 Star</option>
+                        <option value="4_5_star" {{ old('rating') ===  '4_5_star' ? 'selected' : '' }}>4.5 Star</option>
+                    </select>
+                    @error('rating')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+
                 <button type="submit" class="btn btn-primary mt-3">Submit</button>
             </form>
         </div>

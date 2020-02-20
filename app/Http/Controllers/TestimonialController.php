@@ -38,7 +38,7 @@ class TestimonialController extends Controller
      */
     public function store(Store $request)
     {
-        $data = $request->only('name', 'description');
+        $data = $request->only('name', 'description', 'rating');
         Testimonial::query()->create($data);
 
         return redirect()->route('testimonials.index');
@@ -75,7 +75,7 @@ class TestimonialController extends Controller
      */
     public function update(Update $request, Testimonial $testimonial)
     {
-        $data = $request->only('name', 'description');
+        $data = $request->only('name', 'description', 'rating');
         $testimonial->update($data);
 
         return redirect()->route('testimonials.index');
