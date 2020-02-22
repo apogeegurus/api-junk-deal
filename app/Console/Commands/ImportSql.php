@@ -45,6 +45,6 @@ class ImportSql extends Command
         $host = config('database.connections.mysql.host');
         $dir = $path . DIRECTORY_SEPARATOR . $fileName;
 
-        exec("mysql --login-path=local {$database} < $dir", $output);
+        exec("mysql --user={$user} --password={$pass} --host={$host} {$database} < $dir", $output);
     }
 }
