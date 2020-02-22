@@ -2,6 +2,9 @@
 
 namespace App\Console;
 
+use App\Console\Commands\BackupDB;
+use App\Console\Commands\ClearBackups;
+use App\Console\Commands\ImportSql;
 use App\Console\Commands\PopulateWeather;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -14,7 +17,10 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        PopulateWeather::class
+        PopulateWeather::class,
+        BackupDB::class,
+        ImportSql::class,
+        ClearBackups::class
     ];
 
     /**
@@ -25,8 +31,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+         $schedule->command('populate:weather')
+                  ->cron('*/30 * * * *');
+
+        $schedule->command('backup:db')
+            ->daily();
+
+        $schedule->command('clear:backups')
+            ->daily();
     }
 
     /**

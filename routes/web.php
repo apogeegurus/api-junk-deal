@@ -51,4 +51,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('teams', 'TeamController');
     Route::post('blogs/ckeditor/upload', 'BlogController@upload')->name('ckeditor.upload');
     Route::resource('blogs', 'BlogController');
+
+    Route::get('backup', 'BackupController@index')->name('backup.index');
+    Route::post('backup', 'BackupController@importBackup')->name('backup.change');
+    Route::get('backup/now', 'BackupController@backupDB')->name('backup.db');
+    Route::delete('backup/{file_name}', 'BackupController@removeBackup')->name('backup.remove');
 });
