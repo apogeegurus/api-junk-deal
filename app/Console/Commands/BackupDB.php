@@ -43,10 +43,10 @@ class BackupDB extends Command
 
         $date = Carbon::now()->format('Y_m_d_h_i_s');
         $fileName = !$isCustom ? "automatic-" . $date . ".sql" : 'custom-' . $date . '.sql';
-        $database = env('DB_DATABASE');
-        $user = env('DB_USERNAME');
-        $pass = env('DB_PASSWORD');
-        $host = env('DB_HOST');
+        $database = config('database.connections.mysql.database');
+        $user = config('database.connections.mysql.username');
+        $pass = config('database.connections.mysql.password');
+        $host = config('database.connections.mysql.host');
         $dir = $path . DIRECTORY_SEPARATOR . $fileName;
 
         exec("mysqldump --user={$user} --password={$pass} --host={$host} {$database} --result-file={$dir} 2>&1", $output);

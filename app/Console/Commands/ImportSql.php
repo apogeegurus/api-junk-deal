@@ -39,10 +39,10 @@ class ImportSql extends Command
     {
         $fileName = $this->argument('file_name');
         $path = storage_path('app' . DIRECTORY_SEPARATOR . 'backups');
-        $database = env('DB_DATABASE');
-        $user = env('DB_USERNAME');
-        $pass = env('DB_PASSWORD');
-        $host = env('DB_HOST');
+        $database = config('database.connections.mysql.database');
+        $user = config('database.connections.mysql.username');
+        $pass = config('database.connections.mysql.password');
+        $host = config('database.connections.mysql.host');
         $dir = $path . DIRECTORY_SEPARATOR . $fileName;
 
         exec("mysql --user={$user} --password={$pass} --host={$host} {$database} < $dir", $output);
