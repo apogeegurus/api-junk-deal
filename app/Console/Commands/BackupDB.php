@@ -49,6 +49,6 @@ class BackupDB extends Command
         $host = config('database.connections.mysql.host');
         $dir = $path . DIRECTORY_SEPARATOR . $fileName;
 
-        exec("mysqldump --user={$user} --password={$pass} --host={$host} {$database} --result-file={$dir} 2>&1", $output);
+        exec("mysqldump --login-path=local {$database} --result-file={$dir} 2>&1", $output);
     }
 }
