@@ -9,6 +9,7 @@ use App\Mail\Quote\SubmitEmail;
 use App\Mail\ReplyMail;
 use App\Models\About;
 use App\Models\Contact;
+use App\Models\HomePage;
 use App\Models\Quote;
 use App\Models\Setting;
 use App\Models\Slider;
@@ -126,5 +127,11 @@ class SiteController extends Controller
     public function indexAbout()
     {
         return response()->json(['about' => About::query()->first(), 'members' => Team::query()->get()]);
+    }
+
+
+    public function indexHomePage()
+    {
+        return response()->json(['home' => HomePage::query()->first()]);
     }
 }

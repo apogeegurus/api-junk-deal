@@ -56,4 +56,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('backup', 'BackupController@importBackup')->name('backup.change');
     Route::get('backup/now', 'BackupController@backupDB')->name('backup.db');
     Route::delete('backup/{file_name}', 'BackupController@removeBackup')->name('backup.remove');
+
+
+    Route::get('pages/home', 'PageController@home')->name('pages.home');
+    Route::put('pages/home/{id}', 'PageController@homeSave')->name('pages.home.update');
+
 });

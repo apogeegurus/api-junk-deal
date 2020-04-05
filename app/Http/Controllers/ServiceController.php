@@ -50,8 +50,13 @@ class ServiceController extends Controller
         $mainImage  = $request->file('mainImage');
         $ext = $mainImage->getClientOriginalExtension();
         $fileName = Str::random(32) . ".{$ext}";
-        $mainImage = Image::make($mainImage)->fit(375, 240)->encode($ext);
-        Storage::disk('public')->put("services/main/{$fileName}", $mainImage->__toString());
+        if(strtolower($ext) !== "svg") {
+            $mainImage = Image::make($mainImage)->fit(375, 240)->encode($ext);
+            $mainImage = $mainImage->__toString();
+            Storage::disk('public')->put("services/main/{$fileName}", $mainImage);
+        } else {
+            Storage::disk('public')->putFileAs("services/main/", $mainImage, $fileName);
+        }
 
         $data = ['main_image' => $fileName] + $serviceData;
         $service = Service::query()->create($data);
@@ -122,8 +127,13 @@ class ServiceController extends Controller
             Storage::disk('public')->delete("services/main/{$service->main_image}");
             $ext = $mainImage->getClientOriginalExtension();
             $fileName = Str::random(32) . ".{$ext}";
-            $mainImage = Image::make($mainImage)->fit(375, 240)->encode($ext);
-            Storage::disk('public')->put("services/main/$fileName", $mainImage->__toString());
+            if(strtolower($ext) !== "svg") {
+                $mainImage = Image::make($mainImage)->fit(375, 240)->encode($ext);
+                $mainImage = $mainImage->__toString();
+                Storage::disk('public')->put("services/main/{$fileName}", $mainImage);
+            } else {
+                Storage::disk('public')->putFileAs("services/main/", $mainImage, $fileName);
+            }
 
             $serviceData = ['main_image' => $fileName] + $serviceData;
         }

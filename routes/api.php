@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 Route::post('get/quote', 'SiteController@getQuote');
 Route::post('contact', 'SiteController@contact');
 Route::get('info', 'SiteController@index');
+Route::get('info/home/page', 'SiteController@indexHomePage');
 Route::get('info/testimonials', 'SiteController@indexTestimonials');
 Route::get('info/videos', 'SiteController@indexVideos');
 Route::get('info/slider/images', 'SiteController@indexSlider');

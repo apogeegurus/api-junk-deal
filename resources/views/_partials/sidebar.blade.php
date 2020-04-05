@@ -103,6 +103,20 @@
             <span>Backup</span></a>
     </li>
 
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Pages
+    </div>
+
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('pages.home') }}">
+            <i class="fas fa-home"></i>
+            <span>Home</span></a>
+    </li>
+
+
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
