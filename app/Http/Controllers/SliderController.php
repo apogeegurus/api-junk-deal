@@ -41,8 +41,7 @@ class SliderController extends Controller
     public function store(Create $request)
     {
         $file = $request->file('file');
-        $ext  = $file->getClientOriginalExtension();
-        $fileName = Str::random(32) . ".{$ext}";
+        $fileName = Str::random(32) . ".png";
         $file = Image::make($file)->fit(1600, 1200)->encode('png')->__toString();
 
         Storage::disk('public')->put("sliders/{$fileName}", $file);
