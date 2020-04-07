@@ -68,21 +68,21 @@ class LocationController extends Controller
         $mainImage      = $request->file('main_image');
         $ext            = $mainImage->getClientOriginalExtension();
         $fileNameMain   = Str::random(32) . ".{$ext}";
-        $mainImage      = Image::make($mainImage)->fit(375, 240)->encode($ext)->__toString();
+        $mainImage      = Image::make($mainImage)->encode($ext)->__toString();
         Storage::disk('public')->put("locations/main/$fileNameMain", $mainImage);
 
 
         $bannerFirst  = $request->file('banner_first');
         $ext          = $bannerFirst->getClientOriginalExtension();
         $fileNameBannerFirst = Str::random(32) . ".{$ext}";
-        $bannerFirst  = Image::make($bannerFirst)->fit(640, 480)->encode($ext)->__toString();
+        $bannerFirst  = Image::make($bannerFirst)->encode($ext)->__toString();
         Storage::disk('public')->put("locations/banners/$fileNameBannerFirst", $bannerFirst);
 
 
         $bannerSecond  = $request->file('banner_second');
         $ext           = $bannerSecond->getClientOriginalExtension();
         $fileNameBannerSecond = Str::random(32) . ".{$ext}";
-        $bannerSecond  = Image::make($bannerSecond)->fit(640, 480)->encode($ext)->__toString();
+        $bannerSecond  = Image::make($bannerSecond)->encode($ext)->__toString();
         Storage::disk('public')->put("locations/banners/$fileNameBannerSecond", $bannerSecond);
 
         $data = [
@@ -153,7 +153,7 @@ class LocationController extends Controller
             Storage::disk('public')->delete("locations/main/{$location->main_image}");
             $ext = $mainImage->getClientOriginalExtension();
             $fileName = Str::random(32) . ".{$ext}";
-            $mainImage      = Image::make($mainImage)->fit(375, 240)->encode($ext)->__toString();
+            $mainImage      = Image::make($mainImage)->encode($ext)->__toString();
             Storage::disk('public')->put("locations/main/$fileName", $mainImage);
 
             $data = ['main_image' => $fileName] + $data;
@@ -164,7 +164,7 @@ class LocationController extends Controller
             Storage::disk('public')->delete("locations/banners/{$location->banner_first}");
             $ext = $bannerFirst->getClientOriginalExtension();
             $fileName = Str::random(32) . ".{$ext}";
-            $bannerFirst  = Image::make($bannerFirst)->fit(640, 480)->encode($ext)->__toString();
+            $bannerFirst  = Image::make($bannerFirst)->encode($ext)->__toString();
             Storage::disk('public')->put("locations/banners/$fileName", $bannerFirst);
 
             $data = ['banner_first' => $fileName] + $data;
@@ -175,7 +175,7 @@ class LocationController extends Controller
             Storage::disk('public')->delete("locations/banners/{$location->banner_first}");
             $ext = $bannerSecond->getClientOriginalExtension();
             $fileName = Str::random(32) . ".{$ext}";
-            $bannerSecond  = Image::make($bannerSecond)->fit(640, 480)->encode($ext)->__toString();
+            $bannerSecond  = Image::make($bannerSecond)->encode($ext)->__toString();
             Storage::disk('public')->put("locations/banners/$fileName", $bannerSecond);
 
             $data = ['banner_second' => $fileName] + $data;
@@ -242,7 +242,7 @@ class LocationController extends Controller
                 'file_name'  => $fileName
             ]);
 
-            $file  = Image::make($file)->fit(640, 480)->encode($ext)->__toString();
+            $file  = Image::make($file)->encode($ext)->__toString();
             Storage::disk('public')->put("locations/gallery/{$location}/$fileName", $file);
         }
 
@@ -296,7 +296,7 @@ class LocationController extends Controller
                 'file_name'  => $fileName
             ]);
 
-            $file  = Image::make($file)->fit(640, 480)->encode($ext)->__toString();
+            $file  = Image::make($file)->encode($ext)->__toString();
             Storage::disk('public')->put("locations/slider/{$location}/$fileName", $file);
         }
 

@@ -18,6 +18,7 @@ Route::post('contact', 'SiteController@contact');
 Route::get('info', 'SiteController@index');
 Route::get('info/home/page', 'SiteController@indexHomePage');
 Route::get('info/testimonials', 'SiteController@indexTestimonials');
+Route::get('info/specializes', 'SiteController@indexSpecializes');
 Route::get('info/videos', 'SiteController@indexVideos');
 Route::get('info/slider/images', 'SiteController@indexSlider');
 Route::get('info/about', 'SiteController@indexAbout');
