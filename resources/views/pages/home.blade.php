@@ -102,6 +102,29 @@
                     @enderror
                 </div>
 
+
+                <div class="form-group">
+                    <label>Step 1 Image</label>
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="step1Image" aria-describedby="inputGroupFileAddon02" name="step_1">
+                            <label class="custom-file-label" for="step1Image">Choose file</label>
+                        </div>
+                    </div>
+                    <div id="step1Preview">
+                        <img src="{{ $home->step_one_path }}" alt="">
+                        @if($home->step_one_path)
+                            <input type="hidden" name="step1Uploaded" value="{{ $home->step_one_path }}">
+                        @endif
+                    </div>
+
+                    @error('step_1')
+                    <span class="text-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
                 <div class="form-group">
                     <label for="step_2_text">Step 2</label>
                     <textarea class="form-control @error('step_2_text') is-invalid @enderror" id="step_2_text" name="step_2_text">{{ $home->step_2_text ?? old('step_2_text') }}</textarea>
@@ -113,10 +136,54 @@
                 </div>
 
                 <div class="form-group">
+                    <label>Step 2 Image</label>
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="step2Image" aria-describedby="inputGroupFileAddon02" name="step_2">
+                            <label class="custom-file-label" for="step2Image">Choose file</label>
+                        </div>
+                    </div>
+                    <div id="step2Preview">
+                        <img src="{{ $home->step_two_path }}" alt="">
+                        @if($home->step_two_path)
+                            <input type="hidden" name="step2Uploaded" value="{{ $home->step_two_path }}">
+                        @endif
+                    </div>
+
+                    @error('step_2')
+                    <span class="text-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
                     <label for="step_3_text">Step 3</label>
                     <textarea class="form-control @error('step_3_text') is-invalid @enderror" id="step_3_text" name="step_3_text">{{ $home->step_3_text ?? old('step_3_text') }}</textarea>
                     @error('step_3_text')
                     <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label>Step 3 Image</label>
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="step3Image" aria-describedby="inputGroupFileAddon02" name="step_3">
+                            <label class="custom-file-label" for="step3Image">Choose file</label>
+                        </div>
+                    </div>
+                    <div id="step3Preview">
+                        <img src="{{ $home->step_three_path }}" alt="">
+                        @if($home->step_three_path)
+                            <input type="hidden" name="step2Uploaded" value="{{ $home->step_three_path }}">
+                        @endif
+                    </div>
+
+                    @error('step_3')
+                    <span class="text-danger" role="alert">
                                 <strong>{{ $message }}</strong>
                         </span>
                     @enderror
@@ -177,6 +244,74 @@
                     @enderror
                 </div>
 
+                <div class="form-group">
+                    <label>Animation Back</label>
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="animation_back" aria-describedby="inputGroupFileAddon02" name="animation_back">
+                            <label class="custom-file-label" for="animation_back">Choose file</label>
+                        </div>
+                    </div>
+                    <div id="animation_back_preview">
+                        <img src="{{ $home->animation_back_path }}" alt="">
+                        @if($home->animation_back_path)
+                            <input type="hidden" name="animation_back_uploaded" value="{{ $home->animation_back_path }}">
+                        @endif
+                    </div>
+
+                    @error('animation_back')
+                    <span class="text-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+
+                <div class="form-group">
+                    <label>Animation Front</label>
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="animation_front" aria-describedby="inputGroupFileAddon02" name="animation_front">
+                            <label class="custom-file-label" for="animation_front">Choose file</label>
+                        </div>
+                    </div>
+                    <div id="animation_front_preview">
+                        <img src="{{ $home->animation_front_path }}" alt="">
+                        @if($home->animation_front_path)
+                            <input type="hidden" name="animation_front_uploaded" value="{{ $home->animation_front_path }}">
+                        @endif
+                    </div>
+
+                    @error('animation_front')
+                    <span class="text-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+
+                <div class="form-group">
+                    <label>Animation Truck</label>
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="animation_truck" aria-describedby="inputGroupFileAddon02" name="animation_truck">
+                            <label class="custom-file-label" for="animation_truck">Choose file</label>
+                        </div>
+                    </div>
+                    <div id="animation_truck_preview">
+                        <img src="{{ $home->animation_truck_path }}" alt="">
+                        @if($home->animation_truck_path)
+                            <input type="hidden" name="animation_truck_uploaded" value="{{ $home->animation_truck_path }}">
+                        @endif
+                    </div>
+
+                    @error('animation_truck')
+                    <span class="text-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
 
                 <button type="submit" class="btn btn-primary mt-3">Submit</button>
             </form>
@@ -208,6 +343,50 @@
             $('#bannerSecondPreview').html('');
             readURL(this.files[0]).then(url => {
                 $('#bannerSecondPreview').append(`<img src="${url}"  alt=""/>`);
+            })
+        })
+
+        $('#step1Image').change(function () {
+            $('#step1Preview').html('');
+            readURL(this.files[0]).then(url => {
+                $('#step1Preview').append(`<img src="${url}"  alt=""/>`);
+            })
+        })
+
+
+        $('#step2Image').change(function () {
+            $('#step2Preview').html('');
+            readURL(this.files[0]).then(url => {
+                $('#step2Preview').append(`<img src="${url}"  alt=""/>`);
+            })
+        })
+
+        $('#step3Image').change(function () {
+            $('#step3Preview').html('');
+            readURL(this.files[0]).then(url => {
+                $('#step3Preview').append(`<img src="${url}"  alt=""/>`);
+            })
+        })
+
+        $('#animation_back').change(function () {
+            $('#animation_back_preview').html('');
+            readURL(this.files[0]).then(url => {
+                $('#animation_back_preview').append(`<img src="${url}"  alt=""/>`);
+            })
+        })
+
+
+        $('#animation_front').change(function () {
+            $('#animation_front_preview').html('');
+            readURL(this.files[0]).then(url => {
+                $('#animation_front_preview').append(`<img src="${url}"  alt=""/>`);
+            })
+        })
+
+        $('#animation_truck').change(function () {
+            $('#animation_truck_preview').html('');
+            readURL(this.files[0]).then(url => {
+                $('#animation_truck_preview').append(`<img src="${url}"  alt=""/>`);
             })
         })
 

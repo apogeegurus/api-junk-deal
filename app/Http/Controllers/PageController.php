@@ -21,22 +21,76 @@ class PageController extends Controller
         $data = $request->all();
 
         $bannerFirst  = $request->file('banner_first');
-        $ext          = $bannerFirst->getClientOriginalExtension();
-        $fileNameBannerFirst = Str::random(32) . ".{$ext}";
-        $bannerFirst  = Image::make($bannerFirst)->encode($ext)->__toString();
-        Storage::disk('public')->put("home/banners/$fileNameBannerFirst", $bannerFirst);
-
-
         $bannerSecond  = $request->file('banner_second');
-        $ext           = $bannerSecond->getClientOriginalExtension();
-        $fileNameBannerSecond = Str::random(32) . ".{$ext}";
-        $bannerSecond  = Image::make($bannerSecond)->encode($ext)->__toString();
-        Storage::disk('public')->put("home/banners/$fileNameBannerSecond", $bannerSecond);
+        $step1         = $request->file('step_1');
+        $step2         = $request->file('step_2');
+        $step3         = $request->file('step_3');
+        $animationBack         = $request->file('animation_back');
+        $animationFront         = $request->file('animation_front');
+        $animationTruck         = $request->file('animation_truck');
 
-        $data = [
-            'banner_second' => $fileNameBannerSecond,
-            'banner_first' => $fileNameBannerFirst
-        ] + $data;
+
+        if(!empty($bannerFirst)) {
+            $ext          = $bannerFirst->getClientOriginalExtension();
+            $fileNameBannerFirst = Str::random(32) . ".{$ext}";
+            $bannerFirst  = Image::make($bannerFirst)->encode($ext)->__toString();
+            Storage::disk('public')->put("home/banners/$fileNameBannerFirst", $bannerFirst);
+            $data['banner_first'] = $fileNameBannerFirst;
+        }
+
+
+        if(!empty($bannerSecond)) {
+            $ext = $bannerSecond->getClientOriginalExtension();
+            $fileNameBannerSecond = Str::random(32) . ".{$ext}";
+            $bannerSecond = Image::make($bannerSecond)->encode($ext)->__toString();
+            Storage::disk('public')->put("home/banners/$fileNameBannerSecond", $bannerSecond);
+            $data['banner_second'] = $fileNameBannerSecond;
+        }
+
+
+        if(!empty($step1)) {
+            $ext = $step1->getClientOriginalExtension();
+            $fileNameStep1 = Str::random(32) . ".{$ext}";
+            Storage::disk('public')->putFileAs("home/steps", $step1, $fileNameStep1);
+            $data['step_one'] = $fileNameStep1;
+        }
+
+
+        if(!empty($step2)) {
+            $ext = $step2->getClientOriginalExtension();
+            $fileNameStep2 = Str::random(32) . ".{$ext}";
+            Storage::disk('public')->putFileAs("home/steps", $step2, $fileNameStep2);
+            $data['step_two'] = $fileNameStep2;
+        }
+
+        if(!empty($step3)) {
+            $ext = $step3->getClientOriginalExtension();
+            $fileNameStep3 = Str::random(32) . ".{$ext}";
+            Storage::disk('public')->putFileAs("home/steps", $step3, $fileNameStep3);
+            $data['step_three'] = $fileNameStep3;
+        }
+
+
+        if(!empty($animationBack)) {
+            $ext = $animationBack->getClientOriginalExtension();
+            $fileNameAnimationBack = Str::random(32) . ".{$ext}";
+            Storage::disk('public')->putFileAs("home/animations", $animationBack, $fileNameAnimationBack);
+            $data['animation_back'] = $fileNameAnimationBack;
+        }
+
+        if(!empty($animationFront)) {
+            $ext = $animationFront->getClientOriginalExtension();
+            $fileNameAnimationFront = Str::random(32) . ".{$ext}";
+            Storage::disk('public')->putFileAs("home/animations", $animationFront, $fileNameAnimationFront);
+            $data['animation_front'] = $fileNameAnimationFront;
+        }
+
+        if(!empty($animationTruck)) {
+            $ext = $animationTruck->getClientOriginalExtension();
+            $fileNameAnimationTruck = Str::random(32) . ".{$ext}";
+            Storage::disk('public')->putFileAs("home/animations", $animationTruck, $fileNameAnimationTruck);
+            $data['animation_truck'] = $fileNameAnimationTruck;
+        }
 
         HomePage::query()->first()->update($data);
         return redirect()->back()->with(['success' => true]);
