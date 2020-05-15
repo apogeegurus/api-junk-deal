@@ -267,7 +267,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="back_duration">Animation Back Duration (Seconds)</label>
+                    <label for="back_duration">Animation Back Duration</label>
                     <input class="form-control @error('back_duration') is-invalid @enderror" id="back_duration" name="back_duration" value="{{ $home->back_duration ?? old('back_duration') }}" type="number">
                     @error('back_duration')
                     <span class="invalid-feedback" role="alert">
@@ -299,7 +299,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="front_duration">Animation Front Duration (Seconds)</label>
+                    <label for="front_duration">Animation Front Duration</label>
                     <input class="form-control @error('front_duration') is-invalid @enderror" id="front_duration" name="front_duration" value="{{ $home->front_duration ?? old('front_duration') }}" type="number">
                     @error('front_duration')
                     <span class="invalid-feedback" role="alert">
