@@ -8,14 +8,14 @@ class HomePage extends Model
 {
     protected $fillable = ['title', 'sub_title', 'specialize_title', 'banner_one_text', 'banner_two_text', 'how_it_works_title', 'how_it_works_sub_title', 'step_1_text', 'step_2_text', 'step_3_text', 'video_title', 'banner_first', 'banner_second', 'step_one', 'step_two', 'step_three', 'animation_back', 'animation_front', 'animation_truck', 'back_duration', "front_duration"];
 
-    protected $appends = ['banner_first_path', 'banner_second_path', 'animation_front_path', 'animation_back_path', 'animation_truck_path', 'step_one_path', 'step_two_path', 'step_three_path'];
+    protected $appends = ['banner_first_path', 'banner_second_path', 'animation_front_path', 'animation_back_path', 'animation_truck_path', 'step_one_path', 'step_two_path', 'step_three_path', 'back_duration_original', 'front_duration_original'];
 
-    public function getBackDurationAttribute($value) {
-        return $value * 5000;
+    public function getBackDurationOriginalAttribute() {
+        return $this->attributes['back_duration'] * 5000;
     }
 
-    public function getFrontDurationAttribute($value) {
-        return $value * 5000;
+    public function getFrontDurationOriginalAttribute($value) {
+        return $this->attributes['front_duration'] * 5000;
     }
 
     public function getBannerFirstPathAttribute()
