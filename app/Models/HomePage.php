@@ -10,6 +10,13 @@ class HomePage extends Model
 
     protected $appends = ['banner_first_path', 'banner_second_path', 'animation_front_path', 'animation_back_path', 'animation_truck_path', 'step_one_path', 'step_two_path', 'step_three_path'];
 
+    public function getBackDurationAttribute($value) {
+        return $value * 5000;
+    }
+
+    public function getFrontDurationAttribute($value) {
+        return $value * 5000;
+    }
 
     public function getBannerFirstPathAttribute()
     {
