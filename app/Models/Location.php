@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
 class Location extends Model
 {
+    use Sluggable;
+
     protected $fillable = ['city', 'title', 'sub_title', 'description', 'facts_left', 'facts_right', 'website',
         'city_phone', 'police_address', 'police_phone', 'police_email', 'donate_address', 'donate_phone',
         'weather', 'weather_icon', 'main_image', 'banner_first', 'banner_second', 'lat', 'lon', 'slug'];

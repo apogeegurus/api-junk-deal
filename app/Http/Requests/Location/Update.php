@@ -29,9 +29,9 @@ class Update extends FormRequest
             'lat' => 'required|max:100|string',
             'title' => 'required|max:120|string',
             'sub_title' => 'required|string',
-            'facts_left' => 'required|min:60|string',
-            'facts_right' => 'required|min:60|string',
-            'description' => 'required|min:255|string',
+            'facts_left' => 'required|string',
+            'facts_right' => 'required|string',
+            'description' => 'required|string',
 
             'website' => 'required|max:120|string|url',
             'city_phone' => 'required|max:120|string',
