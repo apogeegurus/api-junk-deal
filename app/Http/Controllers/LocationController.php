@@ -8,6 +8,7 @@ use App\Models\Location;
 use App\Models\LocationGallery;
 use App\Models\LocationSlider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
@@ -92,6 +93,7 @@ class LocationController extends Controller
         ] + $data;
 
         Location::query()->create($data);
+        Artisan::call("populate:weather");
         return redirect()->route('locations.index');
     }
 
@@ -183,8 +185,7 @@ class LocationController extends Controller
 
 
         $location->update($data);
-
-
+        Artisan::call("populate:weather");
         return redirect()->route('locations.index');
     }
 
