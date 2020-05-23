@@ -43,9 +43,8 @@ class PopulateWeather extends Command
         $client = new Client();
         $APPKEY = config('app.openweather_api_key');
 
-        $url = "https://api.openweathermap.org/data/2.5/weather?units=imperial&appid={$APPKEY}";
-
         foreach ($locations as $location) {
+            $url = "https://api.openweathermap.org/data/2.5/weather?units=imperial&appid={$APPKEY}";
             $lat = $location->lat;
             $lon = $location->lon;
 
