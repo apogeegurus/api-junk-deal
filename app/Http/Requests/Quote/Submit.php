@@ -29,7 +29,7 @@ class Submit extends FormRequest
             'phone' => 'required|string|max:80',
             'zip_code' => 'required|string|max:80',
             'date' => 'required|date',
-            'description' => 'required|min:50|string'
+            'description' => 'required|string'
         ];
     }
 }
