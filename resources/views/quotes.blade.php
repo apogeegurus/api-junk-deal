@@ -33,11 +33,12 @@
                             <td>{{ $quote->date }}</td>
                             <td class="text-right">
                                 @if(!$quote->reply)
-                                    <button class="btn btn-info reply" data-id="{{ $quote->id }}">Reply</button>
+                                    <button class="btn btn-info reply" data-email="{{ $quote->email }}" data-id="{{ $quote->id }}">Reply</button>
                                 @else
                                     <button class="btn btn-info show-reply-message" data-message="{{ $quote->reply }}">Reply Message</button>
                                 @endif
                                     <button class="btn btn-info show-info" data-json="{{  json_encode($quote) }}">View Details</button>
+                                    <button class="btn btn-danger delete" data-id="{{ $quote->id }}">Delete</button>
                             </td>
                         </tr>
                     @endforeach
@@ -87,7 +88,7 @@
                     @csrf
                     <input type="hidden" class="contact_id" name="id">
                     <div class="form-group">
-                        <label for="phone">Reply Message</label>
+                        <label for="phone">Reply Message To: <b class="email"></b></label>
                         <textarea type="text" class="form-control" id="phone" name="message" required></textarea>
                     </div>
 
@@ -124,9 +125,26 @@
 
             $('.reply').click(function () {
                 let ID = $(this).attr('data-id');
+                let EMAIL = $(this).attr('data-email');
                 let modal = $('#modalReply');
                 modal.find('.contact_id').val(ID);
+                modal.find('.email').text(EMAIL);
                 modal.modal('show');
+            })
+
+            $('.delete').click(function () {
+                let id = $(this).attr('data-id');
+                let self = $(this);
+
+                if(confirm('Are you sure want to delete this item?')) {
+                    $.ajax({
+                        url: "quotes/" + id,
+                        type: "DELETE",
+                        success: function () {
+                            self.closest('tr').remove();
+                        }
+                    })
+                }
             })
         })
     </script>

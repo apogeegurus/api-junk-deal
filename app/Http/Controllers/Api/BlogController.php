@@ -11,26 +11,25 @@ class BlogController extends Controller
     public function index()
     {
         $blogs = Blog::query()
-            ->select('author', 'headline', 'sub_headline', 'main_image', 'slug')
             ->orderBy('created_at', 'DESC')
-            ->paginate(20);
+            ->paginate(5);
 
         return response()->json(['blogs' => $blogs]);
     }
-
-    public function show($slug)
-    {
-        $blog = Blog::query()
-            ->where('slug', '=', $slug)
-            ->first();
-
-        $similar = Blog::query()
-            ->select('slug', 'author', 'headline', 'sub_headline', 'main_image')
-            ->where('slug', '<>', $slug)
-            ->limit(10)
-            ->inRandomOrder()
-            ->get();
-
-        return response()->json(['blog' => $blog, 'similars' => $similar]);
-    }
+//
+//    public function show($slug)
+//    {
+//        $blog = Blog::query()
+//            ->where('slug', '=', $slug)
+//            ->first();
+//
+//        $similar = Blog::query()
+//            ->select('slug', 'author', 'headline', 'sub_headline', 'main_image')
+//            ->where('slug', '<>', $slug)
+//            ->limit(10)
+//            ->inRandomOrder()
+//            ->get();
+//
+//        return response()->json(['blog' => $blog, 'similars' => $similar]);
+//    }
 }

@@ -27,6 +27,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('contact', 'DashboardController@contacts')->name('contact.index');
     Route::post('contact', 'DashboardController@contactReply')->name('contact.reply');
     Route::post('quotes', 'DashboardController@quoteReply')->name('quotes.reply');
+    Route::delete('quotes/{id}', 'DashboardController@quoteDelete')->name('quotes.delete');
     Route::delete('services/images/{id}', 'ServiceController@destroyImage');
     Route::resource('services', 'ServiceController');
     Route::resource('settings', 'SettingController');
@@ -45,13 +46,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('locations/{location}/slider', 'LocationController@sliderStore')->name('locations.slider.store');
 
     Route::resource('locations', 'LocationController');
-    Route::resource('videos', 'VideoController');
+//    Route::resource('videos', 'VideoController');
 
     Route::resource('about', 'AboutController');
     Route::resource('teams', 'TeamController');
     Route::post('blogs/ckeditor/upload', 'BlogController@upload')->name('ckeditor.upload');
     Route::resource('blogs', 'BlogController');
     Route::resource('specializes', 'SpecializeController');
+    Route::post('specializes/order/change', 'SpecializeController@orderChange');
 
 
     Route::get('backup', 'BackupController@index')->name('backup.index');

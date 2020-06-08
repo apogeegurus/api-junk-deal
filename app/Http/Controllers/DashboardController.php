@@ -62,4 +62,9 @@ class DashboardController extends Controller
 
         return redirect()->back();
     }
+
+    public function quoteDelete($id) {
+        Quote::query()->find($id)->delete();
+        return response()->json(["success" => true]);
+    }
 }

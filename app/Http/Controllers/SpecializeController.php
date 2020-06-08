@@ -16,7 +16,7 @@ class SpecializeController extends Controller
      */
     public function index()
     {
-        $specializes = Specialize::query()->paginate(20);
+        $specializes = Specialize::query()->orderBy("order", 'ASC')->get();
         return view('specializes.index', compact('specializes'));
     }
 
@@ -92,5 +92,21 @@ class SpecializeController extends Controller
     {
         $specialize->delete();
         return response()->json(['success' => true]);
+    }
+
+
+    /**
+     * @param Request $request
+     */
+    public function orderChange(Request $request)
+    {
+        $orders  = $request->get("orders");
+        foreach ($orders as $key => $order) {
+            Specialize::query()
+                ->where("id", "=", $order)
+                ->update([
+                    "order" => $key
+                ]);
+        }
     }
 }

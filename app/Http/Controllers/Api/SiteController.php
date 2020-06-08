@@ -132,7 +132,7 @@ class SiteController extends Controller
 
     public function indexSpecializes()
     {
-        return response()->json(['specializes' => Specialize::query()->select('name')->get()->map(function ($item) { return ["label" => $item->name]; })]);
+        return response()->json(['specializes' => Specialize::query()->select('name')->orderBy("order", 'ASC')->get()->map(function ($item) { return ["label" => $item->name]; })]);
     }
 
 
