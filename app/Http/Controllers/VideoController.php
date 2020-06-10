@@ -17,7 +17,7 @@ class VideoController extends Controller
      */
     public function index()
     {
-        $videos = Video::query()->select('id', 'video_url', 'title')->paginate(20);
+        $videos = Video::query()->select('id', 'video_url', 'title', "is_mobile")->paginate(20);
         return view('videos.index', compact('videos'));
     }
 
@@ -40,6 +40,8 @@ class VideoController extends Controller
     public function store(Store $request)
     {
         $data = $request->only('title', 'description', 'video_url');
+        $isMobile = $request->get("is_mobile", 0);
+        $data = $data + ["is_mobile" => $isMobile];
         Video::query()->create($data);
 
         return redirect()->route('videos.index');
@@ -77,6 +79,8 @@ class VideoController extends Controller
     public function update(Update $request, Video $video)
     {
         $data = $request->only('title', 'description', 'video_url');
+        $isMobile = $request->get("is_mobile", 0);
+        $data = $data + ["is_mobile" => $isMobile];
         $video->update($data);
 
         return redirect()->route('videos.index');

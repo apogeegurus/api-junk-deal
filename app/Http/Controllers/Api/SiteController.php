@@ -48,7 +48,7 @@ class SiteController extends Controller
     public function indexVideos()
     {
         $videos = Video::query()
-            ->select('title', 'description', 'video_url')
+            ->select('title', 'description', 'video_url', 'is_mobile')
             ->get();
         return response()->json(['videos' => $videos]);
     }

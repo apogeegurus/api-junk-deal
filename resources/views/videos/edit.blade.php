@@ -45,6 +45,11 @@
                     @enderror
                 </div>
 
+                <div class="form-group">
+                    <label for="description">For mobile</label>
+                    <input type="checkbox" name="is_mobile" value="1" {{ old('is_mobile', $video->is_mobile) ? "checked" : ""}}>
+                </div>
+
 
                 <button type="submit" class="btn btn-primary mt-3">Submit</button>
             </form>

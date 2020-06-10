@@ -20,6 +20,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Title</th>
                         <th scope="col">Video Url</th>
+                        <th scope="col">For Mobile</th>
                         <th scope="col">Actions</th>
                     </tr>
                     </thead>
@@ -29,6 +30,7 @@
                             <th scope="row">{{ $datum->id }}</th>
                             <td>{{ $datum->title }}</td>
                             <td>{{ $datum->video_url }}</td>
+                            <td>{{ $datum->is_mobile ? "Yes" : "No" }}</td>
                             <td>
                                 <a href="{{ route('videos.show', ['video' => $datum->id]) }}" class="btn btn-warning">Show</a>
                                 <a href="{{ route('videos.edit', ['video' => $datum->id]) }}" class="btn btn-success">Edit</a>

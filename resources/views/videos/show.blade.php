@@ -17,6 +17,7 @@
                 <li class="list-group-item"><b>Title:</b> {{ $video->title }}</li>
                 <li class="list-group-item"><b>Description:</b> {{ $video->description }}</li>
                 <li class="list-group-item"><b>Video:</b> {{ $video->video_url }}</li>
+                <li class="list-group-item"><b>For Mobile:</b> {{ $video->is_mobile ? "Yes" : "No" }}</li>
                 <li class="list-group-item"><b>Created At:</b> {{ $video->created_at }}</li>
             </ul>
         </div>
