@@ -27,7 +27,7 @@
     </tr>
     <tr>
         <td style="border-top:1px solid #ccc;border-left:1px solid #ccc;padding:10px;color:#3d3d3d">Date</td>
-        <td style="border-top:1px solid #ccc;border-left:1px solid #ccc;padding:10px;color:#3d3d3d">{{ $quote->date  }}</td>
+        <td style="border-top:1px solid #ccc;border-left:1px solid #ccc;padding:10px;color:#3d3d3d">{{ $quote->date_scheduled  }}</td>
     </tr>
     <tr>
         <td style="border-top:1px solid #ccc;border-left:1px solid #ccc;padding:10px;color:#3d3d3d">Junk description</td>

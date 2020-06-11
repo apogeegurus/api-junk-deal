@@ -30,7 +30,7 @@
                             <td>{{ $quote->name  }}</td>
                             <td>{{ $quote->email }}</td>
                             <td>{{ $quote->phone }}</td>
-                            <td>{{ $quote->date }}</td>
+                            <td>{{ $quote->date_scheduled }}</td>
                             <td class="text-right">
                                 @if(!$quote->reply)
                                     <button class="btn btn-info reply" data-email="{{ $quote->email }}" data-id="{{ $quote->id }}">Reply</button>
@@ -110,7 +110,7 @@
                 modal.find('.phone').text(data.phone);
                 modal.find('.zip_code').text(data.zip_code);
                 modal.find('.description').text(data.description);
-                modal.find('.date').text(data.date);
+                modal.find('.date').text(data.date_scheduled);
                 modal.find('.submit_date').text(data.created_at);
 
                 modal.modal('show');

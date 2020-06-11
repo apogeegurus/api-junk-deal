@@ -9,8 +9,15 @@ class Quote extends Model
 {
     protected $fillable = ['name', 'email', 'phone', 'zip_code', 'date', 'description', 'reply'];
 
+    protected $appends = ["date_scheduled"];
+
     public function getCreatedAtAttribute()
     {
-        return Carbon::createFromFormat("Y-m-d H:i:s", $this->attributes["created_at"])->timezone("America/Los_Angeles")->format("Y-m-d H:i:s");
+        return Carbon::createFromFormat("Y-m-d H:i:s", $this->attributes["created_at"])->timezone("America/Los_Angeles")->format("F d Y H:i:s");
+    }
+
+    public function getDateScheduledAttribute()
+    {
+        return Carbon::createFromFormat("Y-m-d", $this->attributes["date"])->format("F d Y");
     }
 }
