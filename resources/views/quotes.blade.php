@@ -19,7 +19,7 @@
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
                         <th scope="col">Phone</th>
-                        <th scope="col">Date</th>
+                        <th scope="col">Scheduled Date</th>
                         <th scope="col" class="text-right w-25">Actions</th>
                     </tr>
                     </thead>
@@ -64,7 +64,7 @@
                         <li class="list-group-item"><b>Phone:</b> <span class="phone"></span></li>
                         <li class="list-group-item"><b>Zip code:</b> <span class="zip_code"></span></li>
                         <li class="list-group-item"><b>Description:</b> <span class="description"></span></li>
-                        <li class="list-group-item"><b>Date:</b> <span class="date"></span></li>
+                        <li class="list-group-item"><b>Scheduled Date:</b> <span class="date"></span></li>
                         <li class="list-group-item"><b>Submitted Date:</b> <span class="submit_date"></span></li>
                     </ul>
                 </div>
