@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Quote\Submit;
 use App\Mail\ContactMail;
+use App\Mail\Quote\SubmitAdminEmail;
 use App\Mail\Quote\SubmitEmail;
 use App\Mail\ReplyMail;
 use App\Models\About;
@@ -100,6 +101,8 @@ class SiteController extends Controller
             $quote = Quote::query()->create($data);
             Mail::to($data['email'])
                 ->queue(new SubmitEmail($quote));
+            Mail::to(config("app.admin_email"))
+                ->queue(new SubmitAdminEmail($quote));
         } catch (\Exception $err) {
             Log::info($err->getMessage());
             return response()->json(['message' => 'Something wrong please try again.'], 400);

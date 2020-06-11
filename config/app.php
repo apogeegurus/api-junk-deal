@@ -14,6 +14,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'admin_email' => env('ADMIN_EMAIL', 'info@junkdeal.com'),
 
     'openweather_api_key' => env('OPENWEATHER_API_KEY', null),
     /*
