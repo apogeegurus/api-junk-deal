@@ -11,6 +11,11 @@ class Quote extends Model
 
     protected $appends = ["date_scheduled"];
 
+    /**
+     * Overrides the created_at attribute with pacific timezone and corrected format
+     * 
+     * @return DateTime
+     */
     public function getCreatedAtAttribute()
     {
         return Carbon::createFromFormat("Y-m-d H:i:s", $this->attributes["created_at"])->timezone("America/Los_Angeles")->format("F d Y H:i:s");
