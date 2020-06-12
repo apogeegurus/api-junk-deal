@@ -16,7 +16,7 @@
                 @csrf
                 @method('PUT')
                 <div class="form-group">
-                    <label for="city">City</label>
+                    <label for="city">City &#40;Displayed on the Thumbnail 1st and Page 2nd&#41;</label>
                     <input type="text" class="form-control @error('city') is-invalid @enderror" id="city" value="{{ old('city', $location->city) }}" name="city">
                     @error('city')
                     <span class="invalid-feedback" role="alert">
@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="lat">Lat</label>
+                    <label for="lat">latitude</label>
                     <input type="text" class="form-control @error('lat') is-invalid @enderror" id="lat" value="{{ old('lat', $location->lat) }}" name="lat">
                     @error('lat')
                     <span class="invalid-feedback" role="alert">
@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="lon">Lon</label>
+                    <label for="lon">longitude</label>
                     <input type="text" class="form-control @error('lon') is-invalid @enderror" id="lon" value="{{ old('lon', $location->lon) }}" name="lon">
                     @error('lon')
                     <span class="invalid-feedback" role="alert">
@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="title">Title</label>
+                    <label for="title">Title &#40;Displayed on the Page 1st</label>
                     <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" value="{{ old('title', $location->title) }}" name="title">
                     @error('title')
                     <span class="invalid-feedback" role="alert">
@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="sub_title">Sub Title</label>
+                    <label for="sub_title">Sub Title &#40;Displayed on the Thumbnail 2nd and Page 3rd&#41;</label>
                     <input type="text" class="form-control @error('sub_title') is-invalid @enderror" id="sub_title" value="{{ old('sub_title', $location->sub_title) }}" name="sub_title">
                     @error('sub_title')
                     <span class="invalid-feedback" role="alert">
@@ -118,7 +118,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="police_address">Police address</label>
+                    <label for="police_address">Resource address</label>
                     <input type="text" class="form-control @error('police_address') is-invalid @enderror" id="police_address" value="{{ old('police_address', $location->police_address) }}" name="police_address">
                     @error('police_address')
                     <span class="invalid-feedback" role="alert">
@@ -128,7 +128,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="police_phone">Police phone</label>
+                    <label for="police_phone">Resource phone</label>
                     <input type="text" class="form-control @error('police_phone') is-invalid @enderror" id="police_phone" value="{{ old('police_phone', $location->police_phone) }}" name="police_phone">
                     @error('police_phone')
                     <span class="invalid-feedback" role="alert">
@@ -138,7 +138,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="police_email">Police email</label>
+                    <label for="police_email">Resource email</label>
                     <input type="text" class="form-control @error('police_email') is-invalid @enderror" id="police_email" value="{{ old('police_email', $location->police_email) }}" name="police_email">
                     @error('police_email')
                     <span class="invalid-feedback" role="alert">
