@@ -13,8 +13,8 @@ class Quote extends Model
 
     /**
      * Overrides the created_at attribute with pacific timezone and corrected format
-     * 
-     * @return DateTime
+     *
+     * @return string
      */
     public function getCreatedAtAttribute()
     {

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,8 +15,8 @@ class Blog extends Model
 
     /**
      * Overrides the created_at attribute with pacific timezone and corrected format
-     * 
-     * @return DateTime
+     *
+     * @return string
      */
     public function getCreatedAtAttribute()
     {
