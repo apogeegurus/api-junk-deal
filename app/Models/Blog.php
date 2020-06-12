@@ -13,6 +13,16 @@ class Blog extends Model
     protected $appends = ['main_image_path'];
 
     /**
+     * Overrides the created_at attribute with pacific timezone and corrected format
+     * 
+     * @return DateTime
+     */
+    public function getCreatedAtAttribute()
+    {
+        return Carbon::createFromFormat("Y-m-d H:i:s", $this->attributes["created_at"])->timezone("America/Los_Angeles")->format("F d Y H:i:s");
+    }
+
+    /**
      * Return the sluggable configuration array for this model.
      *
      * @return array
