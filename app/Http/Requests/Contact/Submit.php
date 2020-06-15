@@ -27,7 +27,7 @@ class Submit extends FormRequest
             'name' => 'required|string|max:80',
             'email' => 'required|string|max:80|email',
             'subject' => 'required|string|max:80',
-            'message' => 'required|string|min:50'
+            'message' => 'required|string'
         ];
     }
 }

@@ -133,4 +133,10 @@ return [
 
     'log_channel' => env('MAIL_LOG_CHANNEL'),
 
+
+    'ses' => [
+        'key' => env('SES_KEY'),
+        'secret' => env('SES_KEY_SECRET'),
+        'region' => env('SES_REGION'),
+    ],
 ];
