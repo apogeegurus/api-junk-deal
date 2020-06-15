@@ -3,7 +3,7 @@
 
 </head>
 <body>
-<img src="{{ asset("img/logo.svg") }}" alt="junkdeal" height="68" width="202"/>
+<img src="{{ asset("img/logo.png") }}" alt="junkdeal" height="68" width="202"/>
 <br>
 <b>New submission</b>
 <br>
@@ -15,7 +15,7 @@
     </tr>
     <tr>
         <td style="border-top:1px solid #ccc;border-left:1px solid #ccc;padding:10px;color:#3d3d3d">Phone</td>
-        <td style="border-top:1px solid #ccc;border-left:1px solid #ccc;padding:10px;color:#3d3d3d">{{ $quote->phone }}</td>
+        <td style="border-top:1px solid #ccc;border-left:1px solid #ccc;padding:10px;color:#3d3d3d"><a href="tel:{{$quote->phone}}">{{ $quote->phone }}</a></td>
     </tr>
     <tr>
         <td style="border-top:1px solid #ccc;border-left:1px solid #ccc;padding:10px;color:#3d3d3d">Zip Code</td>
@@ -23,7 +23,7 @@
     </tr>
     <tr>
         <td style="border-top:1px solid #ccc;border-left:1px solid #ccc;padding:10px;color:#3d3d3d">Email</td>
-        <td style="border-top:1px solid #ccc;border-left:1px solid #ccc;padding:10px;color:#3d3d3d">{{ $quote->email }}</td>
+        <td style="border-top:1px solid #ccc;border-left:1px solid #ccc;padding:10px;color:#3d3d3d"><a href="mailto:{{$quote->email}}">{{ $quote->email }}</a></td>
     </tr>
     <tr>
         <td style="border-top:1px solid #ccc;border-left:1px solid #ccc;padding:10px;color:#3d3d3d">Date</td>
