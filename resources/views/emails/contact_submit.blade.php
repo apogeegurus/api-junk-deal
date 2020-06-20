@@ -6,8 +6,9 @@
 <img src="{{ asset("img/logo.png") }}" alt="junkdeal" height="68" width="202"/>
 <br>
 <br>
-<b>New contact submission.</b>
+<b>Thank you for contacting us.</b>
 <br>
+<p>Our team will get back to you shortly. We appreciate your interest and look forward to helping you with your hauling needs.</p>
 <p><b>Contact details:</b></p>
 <table style="width:600px;border-bottom:1px solid #ccc;border-right:1px solid #ccc" cellspacing="0" cellpadding="3">
     <tr>

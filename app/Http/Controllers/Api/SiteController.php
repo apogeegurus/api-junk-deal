@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Quote\Submit;
 use App\Mail\ContactMail;
+use App\Mail\ContactSubmitMail;
 use App\Mail\Quote\SubmitAdminEmail;
 use App\Mail\Quote\SubmitEmail;
 use App\Mail\ReplyMail;
@@ -123,6 +124,8 @@ class SiteController extends Controller
 
         Mail::to($data['email'])
             ->queue(new ContactMail($contact));
+        Mail::to($data['email'])
+            ->queue(new ContactSubmitMail($contact));
 
         return response()->json(['success' => true], 204);
     }
