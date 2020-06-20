@@ -122,7 +122,7 @@ class SiteController extends Controller
         $data = $request->only(['name', 'email', 'subject', 'message']);
         $contact = Contact::query()->create($data);
 
-        Mail::to($data['email'])
+        Mail::to(config("app.admin_email"))
             ->queue(new ContactMail($contact));
         Mail::to($data['email'])
             ->queue(new ContactSubmitMail($contact));
