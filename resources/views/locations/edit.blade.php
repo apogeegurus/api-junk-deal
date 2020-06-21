@@ -46,6 +46,16 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="url">Url</label>
+                    <input type="text" class="form-control @error('url') is-invalid @enderror" id="url" value="{{ old('url', $location->url) }}" name="url">
+                    @error('url')
+                    <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
                     <label for="title">Title &#40;Displayed on the Page 1st</label>
                     <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" value="{{ old('title', $location->title) }}" name="title">
                     @error('title')

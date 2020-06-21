@@ -32,6 +32,7 @@ class Update extends FormRequest
             'facts_left' => 'required|string',
             'facts_right' => 'required|string',
             'description' => 'required|string',
+            'url' => 'nullable|unique:locations,url,' . $this->location->id,
 
             'website' => 'required|max:120|string|url',
             'city_phone' => 'required|max:120|string',

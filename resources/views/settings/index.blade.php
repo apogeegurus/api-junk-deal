@@ -80,6 +80,16 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="map_address">Map address</label>
+                    <input type="text" class="form-control @error('map_address') is-invalid @enderror" id="map_address" value="{{ $settings->map_address ?? old('map_address') }}" name="map_address">
+                    @error('map_address')
+                    <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
                     <label for="about_footer">About Us Footer</label>
                     <textarea class="form-control @error('about_footer') is-invalid @enderror" id="about_footer" name="about_footer">{{ $settings->about_footer ?? old('about_footer') }}</textarea>
                     @error('about_footer')

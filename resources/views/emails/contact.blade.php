@@ -15,6 +15,10 @@
         <td style="border-top:1px solid #ccc;border-left:1px solid #ccc;padding:10px;color:#3d3d3d">{{ $contact->name }}</td>
     </tr>
     <tr>
+        <td style="border-top:1px solid #ccc;border-left:1px solid #ccc;padding:10px;color:#3d3d3d">Subject</td>
+        <td style="border-top:1px solid #ccc;border-left:1px solid #ccc;padding:10px;color:#3d3d3d">{{ $contact->subject }}</td>
+    </tr>
+    <tr>
         <td style="border-top:1px solid #ccc;border-left:1px solid #ccc;padding:10px;color:#3d3d3d">Email</td>
         <td style="border-top:1px solid #ccc;border-left:1px solid #ccc;padding:10px;color:#3d3d3d"><a href="mailto:{{$contact->email}}">{{ $contact->email }}</a></td>
     </tr>

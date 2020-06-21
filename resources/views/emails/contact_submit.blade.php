@@ -6,14 +6,20 @@
 <img src="{{ asset("img/logo.png") }}" alt="junkdeal" height="68" width="202"/>
 <br>
 <br>
-<b>Thank you for contacting us.</b>
+<b>
+    Thank you for contacting us, our team will get back to you shortly if you need immediate assistance call this number.
+    <a href="tel:"
+</b>
 <br>
-<p>Our team will get back to you shortly. We appreciate your interest and look forward to helping you with your hauling needs.</p>
 <p><b>Contact details:</b></p>
 <table style="width:600px;border-bottom:1px solid #ccc;border-right:1px solid #ccc" cellspacing="0" cellpadding="3">
     <tr>
         <td style="border-top:1px solid #ccc;border-left:1px solid #ccc;padding:10px;color:#3d3d3d">Name</td>
         <td style="border-top:1px solid #ccc;border-left:1px solid #ccc;padding:10px;color:#3d3d3d">{{ $contact->name }}</td>
+    </tr>
+    <tr>
+        <td style="border-top:1px solid #ccc;border-left:1px solid #ccc;padding:10px;color:#3d3d3d">Subject</td>
+        <td style="border-top:1px solid #ccc;border-left:1px solid #ccc;padding:10px;color:#3d3d3d">{{ $contact->subject }}</td>
     </tr>
     <tr>
         <td style="border-top:1px solid #ccc;border-left:1px solid #ccc;padding:10px;color:#3d3d3d">Email</td>

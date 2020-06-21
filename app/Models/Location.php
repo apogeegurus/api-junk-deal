@@ -12,7 +12,7 @@ class Location extends Model
 
     protected $fillable = ['city', 'title', 'sub_title', 'description', 'facts_left', 'facts_right', 'website',
         'city_phone', 'police_address', 'police_phone', 'police_email', 'donate_address', 'donate_phone',
-        'weather', 'weather_icon', 'main_image', 'banner_first', 'banner_second', 'lat', 'lon', 'slug'];
+        'weather', 'weather_icon', 'main_image', 'banner_first', 'banner_second', 'lat', 'lon', 'slug', 'url'];
 
     protected $appends = ['main_image_path', 'banner_first_path', 'banner_second_path'];
 

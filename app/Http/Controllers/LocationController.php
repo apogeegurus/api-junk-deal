@@ -62,7 +62,8 @@ class LocationController extends Controller
             'donate_address',
             'donate_phone',
             'lon',
-            'lat'
+            'lat',
+            'url'
         ]);
 
 
@@ -143,7 +144,8 @@ class LocationController extends Controller
             'donate_address',
             'donate_phone',
             'lon',
-            'lat'
+            'lat',
+            'url'
         ]);
 
         $mainImage    = $request->file('main_image');
