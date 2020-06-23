@@ -7,8 +7,8 @@
 <br>
 <br>
 <b>
-    Thank you for contacting us, our team will get back to you shortly if you need immediate assistance call this number.
-    <a href="tel:"
+    Thank you for contacting us, our team will get back to you shortly. <br>
+    if you need immediate assistance please call.<a href="tel:6509957500">650-995-7500</a>
 </b>
 <br>
 <p><b>Contact details:</b></p>
