@@ -52,15 +52,16 @@ class LocationController extends Controller
             'title',
             'sub_title',
             'description',
-            'facts_left',
-            'facts_right',
+            'what_to_eat',
+            'where_to_go',
             'website',
+            'address',
             'city_phone',
-            'police_address',
-            'police_phone',
-            'police_email',
-            'donate_address',
-            'donate_phone',
+            'population',
+            'average_age',
+            'median_income',
+            'median_home_value',
+            'wiki_link',
             'lon',
             'lat',
             'url'
@@ -72,6 +73,12 @@ class LocationController extends Controller
         $fileNameMain   = Str::random(32) . ".{$ext}";
         $mainImage      = Image::make($mainImage)->encode($ext)->__toString();
         Storage::disk('public')->put("locations/main/$fileNameMain", $mainImage);
+
+        $cityEmblem     = $request->file('city_emblem');
+        $ext            = $cityEmblem->getClientOriginalExtension();
+        $fileNameEmblem = Str::random(32) . ".{$ext}";
+        $cityEmblem     = Image::make($cityEmblem)->encode($ext)->__toString();
+        Storage::disk('public')->put("locations/emblem/$fileNameEmblem", $cityEmblem);
 
 
         $bannerFirst  = $request->file('banner_first');
@@ -90,11 +97,13 @@ class LocationController extends Controller
         $data = [
             'main_image' => $fileNameMain,
             'banner_second' => $fileNameBannerSecond,
-            'banner_first' => $fileNameBannerFirst
+            'banner_first' => $fileNameBannerFirst,
+            'city_emblem' => $fileNameEmblem
         ] + $data;
 
         Location::query()->create($data);
         Artisan::call("populate:weather");
+        Artisan::call("populate:yelp-places");
         return redirect()->route('locations.index');
     }
 
@@ -134,15 +143,16 @@ class LocationController extends Controller
             'title',
             'sub_title',
             'description',
-            'facts_left',
-            'facts_right',
+            'what_to_eat',
+            'where_to_go',
             'website',
+            'address',
             'city_phone',
-            'police_address',
-            'police_phone',
-            'police_email',
-            'donate_address',
-            'donate_phone',
+            'population',
+            'average_age',
+            'median_income',
+            'median_home_value',
+            'wiki_link',
             'lon',
             'lat',
             'url'
@@ -151,6 +161,7 @@ class LocationController extends Controller
         $mainImage    = $request->file('main_image');
         $bannerFirst  = $request->file('banner_first');
         $bannerSecond = $request->file('banner_second');
+        $cityEmblem   = $request->file('city_emblem');
 
 
         if(!empty($mainImage)) {
@@ -161,6 +172,16 @@ class LocationController extends Controller
             Storage::disk('public')->put("locations/main/$fileName", $mainImage);
 
             $data = ['main_image' => $fileName] + $data;
+        }
+
+        if(!empty($cityEmblem)) {
+            Storage::disk('public')->delete("locations/emblem/{$location->city_emblem}");
+            $ext = $cityEmblem->getClientOriginalExtension();
+            $fileName = Str::random(32) . ".{$ext}";
+            $cityEmblem      = Image::make($cityEmblem)->encode($ext)->__toString();
+            Storage::disk('public')->put("locations/emblem/$fileName", $cityEmblem);
+
+            $data = ['city_emblem' => $fileName] + $data;
         }
 
 
@@ -188,6 +209,7 @@ class LocationController extends Controller
 
         $location->update($data);
         Artisan::call("populate:weather");
+        Artisan::call("populate:yelp-places");
         return redirect()->route('locations.index');
     }
 
@@ -202,6 +224,7 @@ class LocationController extends Controller
         Storage::disk('public')->deleteDirectory('locations/gallery/' . $location->id);
         Storage::disk('public')->deleteDirectory('locations/slider/' . $location->id);
         Storage::disk('public')->delete("services/main/{$location->main_image}");
+        Storage::disk('public')->delete("services/emblem/{$location->city_emblem}");
         Storage::disk('public')->delete("services/banners/{$location->banner_first}");
         Storage::disk('public')->delete("services/banners/{$location->banner_second}");
 
@@ -231,22 +254,30 @@ class LocationController extends Controller
     public function galleryStore(Request $request, $location)
     {
         $this->validate($request, [
-            'file' => 'required|array',
-            'file.*' => 'image'
+            'file' => 'nullable|array',
+            'file.*' => 'image',
+            'hex_code' => 'nullable'
         ]);
 
         $files = $request->file('file');
 
-        foreach ($files as $file) {
-            $ext = $file->getClientOriginalExtension();
-            $fileName = Str::random(32) . ".{$ext}";
+        if(!empty($request->hex_code)) {
             LocationGallery::query()->create([
                 'location_id' => $location,
-                'file_name'  => $fileName
+                'hex_code'  => $request->hex_code
             ]);
+        } else {
+            foreach ($files as $file) {
+                $ext = $file->getClientOriginalExtension();
+                $fileName = Str::random(32) . ".{$ext}";
+                LocationGallery::query()->create([
+                    'location_id' => $location,
+                    'file_name'  => $fileName
+                ]);
 
-            $file  = Image::make($file)->encode($ext)->__toString();
-            Storage::disk('public')->put("locations/gallery/{$location}/$fileName", $file);
+                $file  = Image::make($file)->encode($ext)->__toString();
+                Storage::disk('public')->put("locations/gallery/{$location}/$fileName", $file);
+            }
         }
 
         return redirect()->route('locations.gallery', ['location' => $location]);

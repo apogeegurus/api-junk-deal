@@ -86,9 +86,9 @@
 
 
                 <div class="form-group">
-                    <label for="facts_left">Facts Left</label>
-                    <textarea class="form-control @error('facts_left') is-invalid @enderror" id="facts_left" name="facts_left">{{ old('facts_left') }}</textarea>
-                    @error('facts_left')
+                    <label for="what_to_eat">What to eat</label>
+                    <textarea class="form-control @error('what_to_eat') is-invalid @enderror" id="what_to_eat" name="what_to_eat">{{ old('what_to_eat') }}</textarea>
+                    @error('what_to_eat')
                     <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                         </span>
@@ -96,9 +96,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="facts_right">Facts Right</label>
-                    <textarea class="form-control @error('facts_right') is-invalid @enderror" id="facts_right" name="facts_right">{{ old('facts_right') }}</textarea>
-                    @error('facts_right')
+                    <label for="where_to_go">Where to go</label>
+                    <textarea class="form-control @error('where_to_go') is-invalid @enderror" id="where_to_go" name="where_to_go">{{ old('where_to_go') }}</textarea>
+                    @error('where_to_go')
                     <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                         </span>
@@ -127,9 +127,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="police_address">Resource address</label>
-                    <input type="text" class="form-control @error('police_address') is-invalid @enderror" id="police_address" value="{{ old('police_address') }}" name="police_address">
-                    @error('police_address')
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control @error('address') is-invalid @enderror" id="address" value="{{ old('address') }}" name="address">
+                    @error('address')
                     <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                         </span>
@@ -137,9 +137,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="police_phone">Resource phone</label>
-                    <input type="text" class="form-control @error('police_phone') is-invalid @enderror" id="police_phone" value="{{ old('police_phone') }}" name="police_phone">
-                    @error('police_phone')
+                    <label for="population">Population</label>
+                    <input type="text" class="form-control @error('population') is-invalid @enderror" id="population" value="{{ old('population') }}" name="population">
+                    @error('population')
                     <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                         </span>
@@ -147,9 +147,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="police_email">Resource email</label>
-                    <input type="text" class="form-control @error('police_email') is-invalid @enderror" id="police_email" value="{{ old('police_email') }}" name="police_email">
-                    @error('police_email')
+                    <label for="average_age">Average age</label>
+                    <input type="text" class="form-control @error('average_age') is-invalid @enderror" id="average_age" value="{{ old('average_age') }}" name="average_age">
+                    @error('average_age')
                     <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                         </span>
@@ -157,9 +157,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="donate_address">Donate address</label>
-                    <input type="text" class="form-control @error('donate_address') is-invalid @enderror" id="donate_address" value="{{ old('donate_address') }}" name="donate_address">
-                    @error('donate_address')
+                    <label for="median_income">Median income</label>
+                    <input type="text" class="form-control @error('median_income') is-invalid @enderror" id="median_income" value="{{ old('median_income') }}" name="median_income">
+                    @error('median_income')
                     <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                         </span>
@@ -167,10 +167,37 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="donate_phone">Donate phone</label>
-                    <input type="text" class="form-control @error('donate_phone') is-invalid @enderror" id="donate_phone" value="{{ old('donate_phone') }}" name="donate_phone">
-                    @error('donate_phone')
+                    <label for="median_home_value">Median home value</label>
+                    <input type="text" class="form-control @error('median_home_value') is-invalid @enderror" id="median_home_value" value="{{ old('median_home_value') }}" name="median_home_value">
+                    @error('median_home_value')
                     <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="wiki_link">Wiki link</label>
+                    <input type="text" class="form-control @error('wiki_link') is-invalid @enderror" id="wiki_link" value="{{ old('wiki_link') }}" name="wiki_link">
+                    @error('wiki_link')
+                    <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label>City Emblem</label>
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="cityEmblem" name="city_emblem" accept="image/x-png,image/gif,image/jpeg">
+                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                        </div>
+                    </div>
+                    <div id="cityEmblemImage"></div>
+
+                    @error('city_emblem')
+                    <span class="text-danger" role="alert">
                                 <strong>{{ $message }}</strong>
                         </span>
                     @enderror
@@ -254,6 +281,13 @@
             })
         })
 
+        $('#cityEmblem').change(function () {
+            $('#cityEmblemImage').html('');
+            readURL(this.files[0]).then(url => {
+                $('#cityEmblemImage').append(`<img src="${url}"  alt=""/>`);
+            })
+        })
+
 
         $('#bannerFirst').change(function () {
             $('#bannerFirstPreview').html('');
@@ -291,7 +325,7 @@
         };
 
         CKEDITOR.replace( 'description', ckEditorConfig);
-        CKEDITOR.replace( 'facts_left', ckEditorConfig);
-        CKEDITOR.replace( 'facts_right', ckEditorConfig);
+        CKEDITOR.replace( 'what_to_eat', ckEditorConfig);
+        CKEDITOR.replace( 'where_to_go', ckEditorConfig);
     </script>
 @endpush

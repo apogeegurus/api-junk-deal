@@ -10,8 +10,8 @@ class Location extends Model
 {
     use Sluggable;
 
-    protected $fillable = ['city', 'title', 'sub_title', 'description', 'facts_left', 'facts_right', 'website',
-        'city_phone', 'police_address', 'police_phone', 'police_email', 'donate_address', 'donate_phone',
+    protected $fillable = ['city', 'title', 'sub_title', 'description', 'website',
+        'city_phone','population', 'average_age', 'median_income', 'median_home_value', 'wiki_link', 'address', 'what_to_eat', 'where_to_go', 'city_emblem',
         'weather', 'weather_icon', 'main_image', 'banner_first', 'banner_second', 'lat', 'lon', 'slug', 'url'];
 
     protected $appends = ['main_image_path', 'banner_first_path', 'banner_second_path'];
@@ -37,6 +37,11 @@ class Location extends Model
                 'source' => 'city'
             ]
         ];
+    }
+
+    public function getCityEmblemPathAttribute()
+    {
+        return url('/storage/locations/emblem/' . $this->city_emblem);
     }
 
     public function getMainImagePathAttribute()

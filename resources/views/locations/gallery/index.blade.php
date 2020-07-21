@@ -16,7 +16,11 @@
             <div id="gallery--photos__show">
                 @foreach($galleries as $gallery)
                     <div class="img-content">
-                        <img src="{{ $gallery->path }}" alt="" height="200px" style="object-fit: cover">
+                        @if(!empty($gallery->hex_code))
+                            <div style="height: 200px;width: 200px;background: {{ $gallery->hex_code }}"></div>
+                        @else
+                            <img src="{{ $gallery->path }}" alt="" height="200px" style="object-fit: cover">
+                        @endif
                         <a class="delete-image d-block" data-id="{{ $gallery->id }}">
                             <i class="fa fa-trash text-danger"></i>
                             Remove Image

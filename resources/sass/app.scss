@@ -24,7 +24,17 @@
     }
 }
 
-#mainImageAvatar img, #bannerFirstPreview img, #bannerSecondPreview img, #step1Preview img, #step2Preview img,  #step3Preview img, #animation_back_preview img, #animation_front_preview img, #animation_truck_preview img{
+#mainImageAvatar img,
+#bannerFirstPreview img,
+#bannerSecondPreview img,
+#step1Preview img,
+#step2Preview img,
+#step3Preview img,
+#animation_back_preview img,
+#animation_front_preview img,
+#animation_truck_preview img,
+#cityEmblemImage img
+{
     width: 300px;
     object-fit: cover;
 }

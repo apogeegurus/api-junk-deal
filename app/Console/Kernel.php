@@ -6,6 +6,7 @@ use App\Console\Commands\BackupDB;
 use App\Console\Commands\ClearBackups;
 use App\Console\Commands\ImportSql;
 use App\Console\Commands\PopulateWeather;
+use App\Console\Commands\PopulateYelpPlaces;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -20,19 +21,23 @@ class Kernel extends ConsoleKernel
         PopulateWeather::class,
         BackupDB::class,
         ImportSql::class,
-        ClearBackups::class
+        ClearBackups::class,
+        PopulateYelpPlaces::class
     ];
 
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param \Illuminate\Console\Scheduling\Schedule $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('populate:weather')
-                  ->cron('*/30 * * * *');
+        $schedule->command('populate:weather')
+            ->cron('*/30 * * * *');
+
+        $schedule->command('populate:yelp-places')
+            ->weekly();
 
         $schedule->command('backup:db')
             ->daily();
@@ -48,7 +53,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

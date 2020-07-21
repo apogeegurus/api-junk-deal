@@ -33,6 +33,18 @@
                     @enderror
                 </div>
 
+                <p>-OR-</p>
+
+                <div class="form-group">
+                    <label for="hex_code">HEX Code</label>
+                    <input type="text" class="form-control @error('hex_code') is-invalid @enderror" id="hex_code" value="{{ old('hex_code') }}" name="hex_code">
+                    @error('hex_code')
+                    <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
                 <button type="submit" class="btn btn-primary mt-3">Submit</button>
             </form>
         </div>

@@ -34,6 +34,7 @@
                                 <a href="{{ route('locations.gallery', ['location' => $location->id]) }}" class="btn btn-info">Gallery</a>
                                 <a href="{{ route('locations.slider', ['location' => $location->id]) }}" class="btn btn-info">Slider</a>
                                 <button class="btn btn-danger delete" data-id="{{ $location->id }}">Delete</button>
+                                <a href="{{ route('places.index', ['location_id' => $location->id]) }}" class="btn btn-warning">Places</a>
                             </td>
                         </tr>
                     @endforeach
