@@ -13,7 +13,7 @@ class AlterLocationsTableDropColumnsAddColumns extends Migration
      */
     public function up()
     {
-        Schema::table('Locations', function (Blueprint $table) {
+        Schema::table('locations', function (Blueprint $table) {
             $table->dropColumn("facts_left");
             $table->dropColumn("facts_right");
             $table->dropColumn('police_address');
@@ -42,7 +42,7 @@ class AlterLocationsTableDropColumnsAddColumns extends Migration
      */
     public function down()
     {
-        Schema::table('Locations', function (Blueprint $table) {
+        Schema::table('locations', function (Blueprint $table) {
             $table->longText('facts_left');
             $table->longText('facts_right');
 
