@@ -37,6 +37,7 @@ class Update extends FormRequest
             'website' => 'required|max:120|string|url',
             'city_phone' => 'required|max:120|string',
 
+            'address' => 'required',
             'population' => 'required|max:120|string',
             'average_age' => 'required|max:120|string',
             'median_income' => 'required|max:120|string',

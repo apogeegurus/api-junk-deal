@@ -14,7 +14,7 @@ class Location extends Model
         'city_phone','population', 'average_age', 'median_income', 'median_home_value', 'wiki_link', 'address', 'what_to_eat', 'where_to_go', 'city_emblem',
         'weather', 'weather_icon', 'main_image', 'banner_first', 'banner_second', 'lat', 'lon', 'slug', 'url'];
 
-    protected $appends = ['main_image_path', 'banner_first_path', 'banner_second_path'];
+    protected $appends = ['main_image_path', 'banner_first_path', 'banner_second_path', 'city_emblem_path'];
 
     /**
      * Overrides the created_at attribute with pacific timezone and corrected format
@@ -68,5 +68,15 @@ class Location extends Model
     public function slider()
     {
         return $this->hasMany(LocationSlider::class, 'location_id', 'id');
+    }
+
+    public function places()
+    {
+        return $this->hasMany(Places::class, 'location_id', 'id');
+    }
+
+    public function yelp_places()
+    {
+        return $this->hasMany(YelpPlace::class, 'location_id', 'id');
     }
 }

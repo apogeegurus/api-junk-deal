@@ -36,10 +36,8 @@ class LocationController extends Controller
     public function show($slug)
     {
         $location = Location::query()
-            ->select('city', 'title', 'sub_title', 'description', 'facts_left', 'facts_right', 'website',
-                'city_phone', 'police_address', 'police_phone', 'police_email', 'donate_address', 'donate_phone',
-                'weather', 'weather_icon', 'main_image', 'banner_first', 'banner_second', 'lat', 'lon', 'id')
-            ->with('gallery:id,file_name,location_id', 'slider:id,file_name,location_id')
+            ->select('*')
+            ->with('gallery:id,file_name,location_id', 'slider:id,file_name,location_id', 'places', 'yelp_places')
             ->where('slug', '=', $slug)
             ->orWhere('url', '=', $slug)
             ->firstOrFail();
