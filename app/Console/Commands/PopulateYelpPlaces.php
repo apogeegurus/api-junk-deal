@@ -56,7 +56,7 @@ class PopulateYelpPlaces extends Command
                     YelpPlace::query()->create([
                         "img" => $place["image_url"] ?? null,
                         "rating" => $place["rating"] ?? null,
-                        "address" => $place["location"]["display_address"][0] ?? null,
+                        "address" => ($place["location"]["display_address"][1] ?? null) . ($place["location"]["display_address"][0] ?? null),
                         "name" => $place["name"] ?? null,
                         "url" => $place["url"] ?? null,
                         "location_id" => $location->id
