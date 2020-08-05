@@ -346,4 +346,20 @@ class LocationController extends Controller
 
         return response()->json(['success' => true]);
     }
+
+
+    /**
+     * @param Request $request
+     */
+    public function orderChange(Request $request)
+    {
+        $orders  = $request->get("orders");
+        foreach ($orders as $key => $order) {
+            LocationGallery::query()
+                ->where("id", "=", $order)
+                ->update([
+                    "order" => $key
+                ]);
+        }
+    }
 }

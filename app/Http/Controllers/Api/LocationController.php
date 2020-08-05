@@ -37,7 +37,9 @@ class LocationController extends Controller
     {
         $location = Location::query()
             ->select('*')
-            ->with('gallery:id,file_name,location_id,hex_code', 'slider:id,file_name,location_id', 'places', 'yelp_places')
+            ->with(["gallery" => function($query) {
+                $query->orderBy("order", "ASC");
+            }], 'slider:id,file_name,location_id', 'places', 'yelp_places')
             ->where('slug', '=', $slug)
             ->orWhere('url', '=', $slug)
             ->firstOrFail();

@@ -46,6 +46,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('locations/{location}/slider', 'LocationController@sliderStore')->name('locations.slider.store');
 
     Route::resource('locations', 'LocationController');
+    Route::post('locations/order/change', 'LocationController@orderChange');
     Route::resource('places', 'PlacesController');
     Route::resource('videos', 'VideoController');
 

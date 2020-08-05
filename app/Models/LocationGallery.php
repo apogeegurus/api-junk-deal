@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class LocationGallery extends Model
 {
-    protected $fillable = ['location_id', 'file_name', 'hex_code'];
+    protected $fillable = ['location_id', 'file_name', 'hex_code', 'order'];
 
     protected $appends = ['path'];
 

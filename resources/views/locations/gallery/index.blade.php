@@ -14,8 +14,8 @@
     <div class="card shadow mb-4 col-12">
         <div class="card-body">
             <div id="gallery--photos__show">
-                @foreach($galleries as $gallery)
-                    <div class="img-content">
+                @foreach($galleries as $key => $gallery)
+                    <div class="img-content" data-id="{{ $gallery->id }}">
                         @if(!empty($gallery->hex_code))
                             <div style="height: 200px;width: 200px;background: {{ $gallery->hex_code }}"></div>
                         @else
@@ -36,8 +36,27 @@
     </div>
 @endsection
 
+
 @push('js')
     <script type="text/javascript">
+        $( "#gallery--photos__show" ).sortable({
+            update: function(e, u) {
+                const orders = [];
+                $("#gallery--photos__show > div").each(function(key, item) {
+                    orders.push($(item).attr("data-id"))
+                })
+
+                $.ajax({
+                    url: "/locations/order/change",
+                    type: "POST",
+                    data: {
+                        _token: $("meta[name='csrf-token']").attr("content"),
+                        orders: orders
+                    }
+                })
+            }
+        });
+
         $('.delete-image').click(function () {
             let id = $(this).attr('data-id');
             let self = $(this);
