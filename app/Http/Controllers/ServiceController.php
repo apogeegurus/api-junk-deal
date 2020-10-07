@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Service\Store;
 use App\Http\Requests\Service\Update;
+use App\Models\LocationGallery;
 use App\Models\Service;
 use App\Models\ServiceImage;
+use App\Models\ServiceSlider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -185,5 +187,78 @@ class ServiceController extends Controller
 
         $image->delete();
         return response()->json(['success' => true]);
+    }
+
+
+    public function sliderIndex($service)
+    {
+        $sliders = ServiceSlider::query()
+            ->where('service_id', '=', $service)
+            ->orderBy("order", "ASC")
+            ->get();
+
+        return view('services.slider.index', compact('sliders'));
+    }
+
+
+
+    public function sliderCreate()
+    {
+        return view('services.slider.create');
+    }
+
+
+    /**
+     * @param Request $request
+     * @param $location
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function sliderStore(Request $request, $service)
+    {
+        $this->validate($request, [
+            'file' => 'required|array',
+            'file.*' => 'image'
+        ]);
+
+        $files = $request->file('file');
+
+        foreach ($files as $file) {
+            $ext = $file->getClientOriginalExtension();
+            $fileName = Str::random(32) . ".{$ext}";
+            ServiceSlider::query()->create([
+                'service_id' => $service,
+                'file_name'  => $fileName
+            ]);
+
+            $file  = Image::make($file)->encode($ext)->__toString();
+            Storage::disk('public')->put("services/slider/{$service}/$fileName", $file);
+        }
+
+        return redirect()->route('services.slider', ['service' => $service]);
+    }
+
+
+    public function destroyImageSlider($id)
+    {
+        $slider = ServiceSlider::query()->find($id);
+        Storage::delete('/public/services/slider/' . $slider->service_id . '/' . $slider->file_name);
+        $slider->delete();
+
+        return response()->json(['success' => true]);
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function orderChange(Request $request)
+    {
+        $orders  = $request->get("orders");
+        foreach ($orders as $key => $order) {
+            ServiceSlider::query()
+                ->where("id", "=", $order)
+                ->update([
+                    "order" => $key
+                ]);
+        }
     }
 }

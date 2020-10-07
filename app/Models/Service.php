@@ -44,6 +44,11 @@ class Service extends Model
         return $this->hasMany(ServiceImage::class, 'service_id', 'id');
     }
 
+    public function sliders()
+    {
+        return $this->hasMany(ServiceSlider::class, 'service_id', 'id');
+    }
+
 
     public function getMainImagePathAttribute()
     {

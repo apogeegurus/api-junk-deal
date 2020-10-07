@@ -29,6 +29,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('quotes', 'DashboardController@quoteReply')->name('quotes.reply');
     Route::delete('quotes/{id}', 'DashboardController@quoteDelete')->name('quotes.delete');
     Route::delete('services/images/{id}', 'ServiceController@destroyImage');
+
+
+    Route::post('services/order/change', 'ServiceController@orderChange');
+    Route::get('services/{service}/slider', 'ServiceController@sliderIndex')->name('services.slider');
+    Route::get('services/{service}/slider/create', 'ServiceController@sliderCreate')->name('services.slider.create');
+    Route::post('services/{service}/slider', 'ServiceController@sliderStore')->name('services.slider.store');
+
     Route::resource('services', 'ServiceController');
     Route::resource('settings', 'SettingController');
     Route::resource('testimonials', 'TestimonialController');
