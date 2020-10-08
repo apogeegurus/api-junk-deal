@@ -64,4 +64,19 @@ class SliderController extends Controller
 
         return response()->json(['success' => true]);
     }
+
+    /**
+     * @param Request $request
+     */
+    public function orderChange(Request $request)
+    {
+        $orders  = $request->get("orders");
+        foreach ($orders as $key => $order) {
+            Slider::query()
+                ->where("id", "=", $order)
+                ->update([
+                    "order" => $key
+                ]);
+        }
+    }
 }

@@ -362,4 +362,19 @@ class LocationController extends Controller
                 ]);
         }
     }
+
+    /**
+     * @param Request $request
+     */
+    public function orderChangeSlider(Request $request)
+    {
+        $orders  = $request->get("orders");
+        foreach ($orders as $key => $order) {
+            LocationSlider::query()
+                ->where("id", "=", $order)
+                ->update([
+                    "order" => $key
+                ]);
+        }
+    }
 }

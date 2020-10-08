@@ -97,7 +97,7 @@
                     <p class="my-4">Gallery Images</p>
                     <div id="gallery--photos__show">
                         @foreach($service->gallery as $image)
-                            <div>
+                            <div data-id="{{ $image->id }}">
                                 <img src="{{ $image->path }}" alt="">
                                 <a class="delete-image d-block" data-id="{{ $image->id }}">
                                     <i class="fa fa-trash text-danger"></i>
@@ -118,6 +118,24 @@
 
 @push('js')
     <script type="text/javascript">
+        $( "#gallery--photos__show" ).sortable({
+            update: function(e, u) {
+                const orders = [];
+                $("#gallery--photos__show > div").each(function(key, item) {
+                    orders.push($(item).attr("data-id"))
+                })
+
+                $.ajax({
+                    url: "/services/order/change/gallery",
+                    type: "POST",
+                    data: {
+                        _token: $("meta[name='csrf-token']").attr("content"),
+                        orders: orders
+                    }
+                })
+            }
+        });
+
         function readURL(file) {
             return new Promise((resolve, reject) => {
                 var reader = new FileReader();

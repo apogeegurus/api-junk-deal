@@ -62,6 +62,7 @@ class SiteController extends Controller
     {
         $sliders = Slider::query()
             ->select('id', 'file_name')
+            ->orderBy('order', 'ASC')
             ->get();
 
         return response()->json(['sliders' => $sliders]);

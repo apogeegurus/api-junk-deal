@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::post('services/order/change', 'ServiceController@orderChange');
+    Route::post('services/order/change/gallery', 'ServiceController@orderChangeGallery');
     Route::get('services/{service}/slider', 'ServiceController@sliderIndex')->name('services.slider');
     Route::get('services/{service}/slider/create', 'ServiceController@sliderCreate')->name('services.slider.create');
     Route::post('services/{service}/slider', 'ServiceController@sliderStore')->name('services.slider.store');
@@ -39,6 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('services', 'ServiceController');
     Route::resource('settings', 'SettingController');
     Route::resource('testimonials', 'TestimonialController');
+    Route::post('sliders/order/change', 'SliderController@orderChange');
     Route::resource('sliders', 'SliderController');
 
     Route::delete('locations/images/{id}/slider', 'LocationController@destroyImageSlider');
@@ -54,6 +56,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('locations', 'LocationController');
     Route::post('locations/order/change', 'LocationController@orderChange');
+    Route::post('locations/order/change/slider', 'LocationController@orderChangeSlider');
     Route::resource('places', 'PlacesController');
     Route::resource('videos', 'VideoController');
 

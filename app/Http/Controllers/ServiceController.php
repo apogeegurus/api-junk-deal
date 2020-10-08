@@ -261,4 +261,19 @@ class ServiceController extends Controller
                 ]);
         }
     }
+
+    /**
+     * @param Request $request
+     */
+    public function orderChangeGallery(Request $request)
+    {
+        $orders  = $request->get("orders");
+        foreach ($orders as $key => $order) {
+            ServiceImage::query()
+                ->where("id", "=", $order)
+                ->update([
+                    "order" => $key
+                ]);
+        }
+    }
 }
