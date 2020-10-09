@@ -37,6 +37,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('services/{service}/slider/create', 'ServiceController@sliderCreate')->name('services.slider.create');
     Route::post('services/{service}/slider', 'ServiceController@sliderStore')->name('services.slider.store');
 
+    Route::delete('services/images/{id}/slider', 'ServiceController@destroyImageSlider');
+
+
     Route::resource('services', 'ServiceController');
     Route::resource('settings', 'SettingController');
     Route::resource('testimonials', 'TestimonialController');
