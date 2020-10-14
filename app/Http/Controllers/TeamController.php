@@ -44,8 +44,7 @@ class TeamController extends Controller
         $avatar  = $request->file('avatar');
         $ext = $avatar->getClientOriginalExtension();
         $fileName = Str::random(32) . ".{$ext}";
-        $avatar = Image::make($avatar)->fit(176, 220)->encode($ext);
-        Storage::disk('public')->put("teams/members/{$fileName}", $avatar->__toString());
+        Storage::disk('public')->putFileAs("teams/members/", $avatar, $fileName);
 
         $data = ['avatar' => $fileName] + $data;
         Team::query()->create($data);
@@ -92,8 +91,7 @@ class TeamController extends Controller
             Storage::disk('public')->delete("teams/members/{$team->avatar}");
             $ext = $avatar->getClientOriginalExtension();
             $fileName = Str::random(32) . ".{$ext}";
-            $avatar = Image::make($avatar)->fit(176, 220)->encode($ext);
-            Storage::disk('public')->put("teams/members/$fileName", $avatar->__toString());
+            Storage::disk('public')->putFileAs("teams/members", $avatar, $fileName);
 
             $data = ['avatar' => $fileName] + $data;
         }

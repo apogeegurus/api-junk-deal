@@ -71,28 +71,24 @@ class LocationController extends Controller
         $mainImage      = $request->file('main_image');
         $ext            = $mainImage->getClientOriginalExtension();
         $fileNameMain   = Str::random(32) . ".{$ext}";
-        $mainImage      = Image::make($mainImage)->encode($ext)->__toString();
-        Storage::disk('public')->put("locations/main/$fileNameMain", $mainImage);
+        Storage::disk('public')->putFileAs("locations/main", $mainImage, $fileNameMain);
 
         $cityEmblem     = $request->file('city_emblem');
         $ext            = $cityEmblem->getClientOriginalExtension();
         $fileNameEmblem = Str::random(32) . ".{$ext}";
-        $cityEmblem     = Image::make($cityEmblem)->encode($ext)->__toString();
-        Storage::disk('public')->put("locations/emblem/$fileNameEmblem", $cityEmblem);
+        Storage::disk('public')->putFileAs("locations/emblem", $cityEmblem, $fileNameEmblem);
 
 
         $bannerFirst  = $request->file('banner_first');
         $ext          = $bannerFirst->getClientOriginalExtension();
         $fileNameBannerFirst = Str::random(32) . ".{$ext}";
-        $bannerFirst  = Image::make($bannerFirst)->encode($ext)->__toString();
-        Storage::disk('public')->put("locations/banners/$fileNameBannerFirst", $bannerFirst);
+        Storage::disk('public')->putFileAs("locations/banners", $bannerFirst, $fileNameBannerFirst);
 
 
         $bannerSecond  = $request->file('banner_second');
         $ext           = $bannerSecond->getClientOriginalExtension();
         $fileNameBannerSecond = Str::random(32) . ".{$ext}";
-        $bannerSecond  = Image::make($bannerSecond)->encode($ext)->__toString();
-        Storage::disk('public')->put("locations/banners/$fileNameBannerSecond", $bannerSecond);
+        Storage::disk('public')->putFileAs("locations/banners", $bannerSecond, $fileNameBannerSecond);
 
         $data = [
             'main_image' => $fileNameMain,
@@ -168,8 +164,7 @@ class LocationController extends Controller
             Storage::disk('public')->delete("locations/main/{$location->main_image}");
             $ext = $mainImage->getClientOriginalExtension();
             $fileName = Str::random(32) . ".{$ext}";
-            $mainImage      = Image::make($mainImage)->encode($ext)->__toString();
-            Storage::disk('public')->put("locations/main/$fileName", $mainImage);
+            Storage::disk('public')->putFileAs("locations/main", $mainImage, $fileName);
 
             $data = ['main_image' => $fileName] + $data;
         }
@@ -178,8 +173,7 @@ class LocationController extends Controller
             Storage::disk('public')->delete("locations/emblem/{$location->city_emblem}");
             $ext = $cityEmblem->getClientOriginalExtension();
             $fileName = Str::random(32) . ".{$ext}";
-            $cityEmblem      = Image::make($cityEmblem)->encode($ext)->__toString();
-            Storage::disk('public')->put("locations/emblem/$fileName", $cityEmblem);
+            Storage::disk('public')->putFileAs("locations/emblem", $cityEmblem, $fileName);
 
             $data = ['city_emblem' => $fileName] + $data;
         }
@@ -189,8 +183,7 @@ class LocationController extends Controller
             Storage::disk('public')->delete("locations/banners/{$location->banner_first}");
             $ext = $bannerFirst->getClientOriginalExtension();
             $fileName = Str::random(32) . ".{$ext}";
-            $bannerFirst  = Image::make($bannerFirst)->encode($ext)->__toString();
-            Storage::disk('public')->put("locations/banners/$fileName", $bannerFirst);
+            Storage::disk('public')->putFileAs("locations/banners", $bannerFirst, $fileName);
 
             $data = ['banner_first' => $fileName] + $data;
         }
@@ -200,8 +193,7 @@ class LocationController extends Controller
             Storage::disk('public')->delete("locations/banners/{$location->banner_first}");
             $ext = $bannerSecond->getClientOriginalExtension();
             $fileName = Str::random(32) . ".{$ext}";
-            $bannerSecond  = Image::make($bannerSecond)->encode($ext)->__toString();
-            Storage::disk('public')->put("locations/banners/$fileName", $bannerSecond);
+            Storage::disk('public')->putFileAs("locations/banners", $bannerSecond, $fileName);
 
             $data = ['banner_second' => $fileName] + $data;
         }
@@ -275,8 +267,7 @@ class LocationController extends Controller
                     'file_name'  => $fileName
                 ]);
 
-                $file  = Image::make($file)->encode($ext)->__toString();
-                Storage::disk('public')->put("locations/gallery/{$location}/$fileName", $file);
+                Storage::disk('public')->putFileAs("locations/gallery/{$location}", $file, $fileName);
             }
         }
 
@@ -330,8 +321,7 @@ class LocationController extends Controller
                 'file_name'  => $fileName
             ]);
 
-            $file  = Image::make($file)->encode($ext)->__toString();
-            Storage::disk('public')->put("locations/slider/{$location}/$fileName", $file);
+            Storage::disk('public')->putFileAs("locations/slider/{$location}", $file, $fileName);
         }
 
         return redirect()->route('locations.slider', ['location' => $location]);

@@ -82,8 +82,7 @@ class AboutController extends Controller
             Storage::disk('public')->delete("about/{$about->image}");
             $ext = $image->getClientOriginalExtension();
             $fileName = Str::random(32) . ".{$ext}";
-            $image = Image::make($image)->fit(735, 344)->encode($ext);
-            Storage::disk('public')->put("about/$fileName", $image->__toString());
+            Storage::disk('public')->putFileAs("about", $image, $fileName);
 
             $aboutData = ['image' => $fileName] + $aboutData;
         }

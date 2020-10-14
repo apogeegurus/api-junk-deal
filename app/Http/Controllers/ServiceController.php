@@ -216,8 +216,7 @@ class ServiceController extends Controller
                 'file_name'  => $fileName
             ]);
 
-            $file  = Image::make($file)->encode($ext)->__toString();
-            Storage::disk('public')->put("services/slider/{$service}/$fileName", $file);
+            Storage::disk('public')->putFileAs("services/slider/{$service}", $file, $fileName);
         }
 
         return redirect()->route('services.slider', ['service' => $service]);

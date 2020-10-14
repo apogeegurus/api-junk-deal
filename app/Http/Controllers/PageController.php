@@ -33,8 +33,7 @@ class PageController extends Controller
         if(!empty($bannerFirst)) {
             $ext          = $bannerFirst->getClientOriginalExtension();
             $fileNameBannerFirst = Str::random(32) . ".{$ext}";
-            $bannerFirst  = Image::make($bannerFirst)->encode($ext)->__toString();
-            Storage::disk('public')->put("home/banners/$fileNameBannerFirst", $bannerFirst);
+            Storage::disk('public')->putFileAs("home/banners", $bannerFirst, $fileNameBannerFirst);
             $data['banner_first'] = $fileNameBannerFirst;
         }
 
@@ -42,8 +41,7 @@ class PageController extends Controller
         if(!empty($bannerSecond)) {
             $ext = $bannerSecond->getClientOriginalExtension();
             $fileNameBannerSecond = Str::random(32) . ".{$ext}";
-            $bannerSecond = Image::make($bannerSecond)->encode($ext)->__toString();
-            Storage::disk('public')->put("home/banners/$fileNameBannerSecond", $bannerSecond);
+            Storage::disk('public')->putFileAs("home/banners", $bannerSecond, $fileNameBannerSecond);
             $data['banner_second'] = $fileNameBannerSecond;
         }
 

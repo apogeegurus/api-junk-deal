@@ -47,8 +47,7 @@ class BlogController extends Controller
         $mainImage  = $request->file('mainImage');
         $ext = $mainImage->getClientOriginalExtension();
         $fileName = Str::random(32) . ".{$ext}";
-        $mainImage = Image::make($mainImage)->encode($ext);
-        Storage::disk('public')->put("blogs/main/{$fileName}", $mainImage->__toString());
+        Storage::disk('public')->putFileAs("blogs/main/", $mainImage, $fileName);
 
         $data = ['main_image' => $fileName] + $blogData;
         Blog::query()->create($data);
@@ -95,8 +94,7 @@ class BlogController extends Controller
             Storage::disk('public')->delete("blogs/main/{$blog->main_image}");
             $ext = $mainImage->getClientOriginalExtension();
             $fileName = Str::random(32) . ".{$ext}";
-            $mainImage = Image::make($mainImage)->encode($ext);
-            Storage::disk('public')->put("blogs/main/$fileName", $mainImage->__toString());
+            Storage::disk('public')->putFileAs("blogs/main", $mainImage, $fileName);
 
             $blogData = ['main_image' => $fileName] + $blogData;
         }
