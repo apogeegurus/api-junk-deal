@@ -52,13 +52,7 @@ class ServiceController extends Controller
         $mainImage  = $request->file('mainImage');
         $ext = $mainImage->getClientOriginalExtension();
         $fileName = Str::random(32) . ".{$ext}";
-        if(strtolower($ext) !== "svg") {
-            $mainImage = Image::make($mainImage)->encode($ext);
-            $mainImage = $mainImage->__toString();
-            Storage::disk('public')->put("services/main/{$fileName}", $mainImage);
-        } else {
-            Storage::disk('public')->putFileAs("services/main/", $mainImage, $fileName);
-        }
+        Storage::disk('public')->putFileAs("services/main/", $mainImage, $fileName);
 
         $data = ['main_image' => $fileName] + $serviceData;
         $service = Service::query()->create($data);
@@ -74,8 +68,7 @@ class ServiceController extends Controller
                 'file_name'  => $fileName
             ]);
 
-            $file = Image::make($file)->encode($ext)->__toString();
-            Storage::disk('public')->put("services/{$service->id}/$fileName", $file);
+            Storage::disk('public')->putFileAs("services/{$service->id}", $file, $fileName);
         }
 
         return redirect()->route('services.index');
@@ -129,13 +122,7 @@ class ServiceController extends Controller
             Storage::disk('public')->delete("services/main/{$service->main_image}");
             $ext = $mainImage->getClientOriginalExtension();
             $fileName = Str::random(32) . ".{$ext}";
-            if(strtolower($ext) !== "svg") {
-                $mainImage = Image::make($mainImage)->encode($ext);
-                $mainImage = $mainImage->__toString();
-                Storage::disk('public')->put("services/main/{$fileName}", $mainImage);
-            } else {
-                Storage::disk('public')->putFileAs("services/main/", $mainImage, $fileName);
-            }
+            Storage::disk('public')->putFileAs("services/main/", $mainImage, $fileName);
 
             $serviceData = ['main_image' => $fileName] + $serviceData;
         }
@@ -153,8 +140,7 @@ class ServiceController extends Controller
                     'file_name'  => $fileName
                 ]);
 
-                $file = Image::make($file)->encode($ext)->__toString();
-                Storage::disk('public')->put("services/{$service->id}/$fileName", $file);
+                Storage::disk('public')->putFileAs("services/{$service->id}", $file, $fileName);
             }
         }
 
