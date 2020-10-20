@@ -367,4 +367,87 @@ class LocationController extends Controller
                 ]);
         }
     }
+
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Slider  $slider
+     * @return \Illuminate\Http\Response
+     */
+    public function sliderEdit(LocationSlider $slider)
+    {
+        return view('locations.slider.edit', compact('slider'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Slider  $slider
+     * @return \Illuminate\Http\Response
+     */
+    public function sliderUpdate(Request $request, LocationSlider $slider)
+    {
+        Storage::delete('/public/locations/slider/' . $slider->location_id . '/' . $slider->file_name);
+        $file = $request->file('file');
+        $ext  = $file->getClientOriginalExtension();
+        $fileName = Str::random(32) . ".{$ext}";
+
+        Storage::disk('public')->putFileAs("locations/slider/{$slider->location_id}", $file, $fileName);
+        $slider->update(['file_name' => $fileName]);
+
+        return redirect()->route('locations.slider', ['location' => $slider->location_id]);
+    }
+
+
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\LocationGallery  $slider
+     * @return \Illuminate\Http\Response
+     */
+    public function galleryEdit(LocationGallery $gallery)
+    {
+        return view('locations.gallery.edit', compact('gallery'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\LocationGallery  $slider
+     * @return \Illuminate\Http\Response
+     */
+    public function galleryUpdate(Request $request, LocationGallery $gallery)
+    {
+        $this->validate($request, [
+            'file' => 'nullable|array',
+            'file.*' => 'image',
+            'hex_code' => 'nullable'
+        ]);
+
+        $files = $request->file('file');
+
+        if(!empty($request->hex_code)) {
+            $gallery->update([
+                'hex_code'  => $request->hex_code
+            ]);
+        } else {
+            Storage::delete('/public/locations/gallery/' . $gallery->location_id . '/' . $gallery->file_name);
+
+            foreach ($files as $file) {
+                $ext = $file->getClientOriginalExtension();
+                $fileName = Str::random(32) . ".{$ext}";
+                $gallery->update([
+                    'file_name'  => $fileName
+                ]);
+
+                Storage::disk('public')->putFileAs("locations/gallery/{$gallery->location_id}", $file, $fileName);
+            }
+        }
+
+        return redirect()->route('locations.gallery', ['location' => $gallery->location_id]);
+    }
 }

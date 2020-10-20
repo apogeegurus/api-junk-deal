@@ -13,18 +13,24 @@
 @section('content')
     <div class="card shadow mb-4 col-12">
         <div class="card-body">
-            <div id="gallery--photos__show">
+            <div id="gallery--photos__show" class="location--gallery">
                 @foreach($galleries as $key => $gallery)
                     <div class="img-content" data-id="{{ $gallery->id }}">
                         @if(!empty($gallery->hex_code))
-                            <div style="height: 200px;width: 200px;background: {{ $gallery->hex_code }}"></div>
+                            <div style="background: {{ $gallery->hex_code }}"></div>
                         @else
                             <img src="{{ $gallery->path }}" alt="" height="200px" style="object-fit: cover">
                         @endif
-                        <a class="delete-image d-block" data-id="{{ $gallery->id }}">
-                            <i class="fa fa-trash text-danger"></i>
-                            Remove Image
-                        </a>
+                        <section class="p-3">
+                            <a class="delete-image d-block" data-id="{{ $gallery->id }}">
+                                <i class="fa fa-trash text-danger"></i>
+                                Remove Image
+                            </a>
+                            <a class="d-block" href="{{ route('locations.gallery.edit', ['gallery' => $gallery->id]) }}">
+                                <i class="fa fa-pencil-alt"></i>
+                                Edit
+                            </a>
+                        </section>
                     </div>
                 @endforeach
             </div>

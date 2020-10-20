@@ -36,6 +36,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('services/{service}/slider', 'ServiceController@sliderIndex')->name('services.slider');
     Route::get('services/{service}/slider/create', 'ServiceController@sliderCreate')->name('services.slider.create');
     Route::post('services/{service}/slider', 'ServiceController@sliderStore')->name('services.slider.store');
+    Route::get('services/slider/{slider}/edit', 'ServiceController@editSlider')->name('services.slider.edit');
+    Route::put('services/slider/{slider}', 'ServiceController@updateSlider')->name('services.slider.update');
 
     Route::delete('services/images/{id}/slider', 'ServiceController@destroyImageSlider');
 
@@ -52,10 +54,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('locations/{location}/gallery', 'LocationController@galleryIndex')->name('locations.gallery');
     Route::get('locations/{location}/gallery/create', 'LocationController@galleryCreate')->name('locations.gallery.create');
     Route::post('locations/{location}/gallery', 'LocationController@galleryStore')->name('locations.gallery.store');
+    Route::get('locations/gallery/{gallery}/edit', 'LocationController@galleryEdit')->name('locations.gallery.edit');
+    Route::put('locations/gallery/{gallery}', 'LocationController@galleryUpdate')->name('locations.gallery.update');
 
     Route::get('locations/{location}/slider', 'LocationController@sliderIndex')->name('locations.slider');
     Route::get('locations/{location}/slider/create', 'LocationController@sliderCreate')->name('locations.slider.create');
     Route::post('locations/{location}/slider', 'LocationController@sliderStore')->name('locations.slider.store');
+    Route::get('locations/slider/{slider}/edit', 'LocationController@sliderEdit')->name('locations.slider.edit');
+    Route::put('locations/slider/{slider}', 'LocationController@sliderUpdate')->name('locations.slider.update');
 
     Route::resource('locations', 'LocationController');
     Route::post('locations/order/change', 'LocationController@orderChange');

@@ -226,7 +226,7 @@ class ServiceController extends Controller
     public function destroyImageSlider($id)
     {
         $slider = ServiceSlider::query()->find($id);
-        Storage::delete('/public/services/slider/' . $slider->service_id . '/' . $slider->file_name);
+        Storage::disk('public')->delete('/services/slider/' . $slider->service_id . '/' . $slider->file_name);
         $slider->delete();
 
         return response()->json(['success' => true]);
@@ -260,5 +260,36 @@ class ServiceController extends Controller
                     "order" => $key
                 ]);
         }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Slider  $slider
+     * @return \Illuminate\Http\Response
+     */
+    public function editSlider(ServiceSlider $slider)
+    {
+        return view('services.slider.edit', compact('slider'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Slider  $slider
+     * @return \Illuminate\Http\Response
+     */
+    public function updateSlider(Request $request, ServiceSlider $slider)
+    {
+        Storage::disk('public')->delete('/services/slider/' . $slider->service_id . '/' . $slider->file_name);
+        $file = $request->file('file');
+        $ext  = $file->getClientOriginalExtension();
+        $fileName = Str::random(32) . ".{$ext}";
+
+        Storage::disk('public')->putFileAs("services/slider/{$slider->service_id}", $file, $fileName);
+        $slider->update(['file_name' => $fileName]);
+
+        return redirect()->route('services.slider', ['service' => $slider->service_id]);
     }
 }

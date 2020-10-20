@@ -21,6 +21,10 @@
                             <i class="fa fa-trash text-danger"></i>
                             Remove Image
                         </a>
+                        <a class="d-block" href="{{ route('services.slider.edit', ['slider' => $slider->id]) }}">
+                            <i class="fa fa-pencil-alt"></i>
+                            Edit
+                        </a>
                     </div>
                 @endforeach
             </div>
