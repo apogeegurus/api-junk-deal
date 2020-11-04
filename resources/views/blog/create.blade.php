@@ -71,6 +71,15 @@
                         </span>
                     @enderror
                 </div>
+                <div class="form-group">
+                    <label for="alt">Alt</label>
+                    <input type="text" class="form-control @error('alt') is-invalid @enderror" id="alt" value="{{ old('alt') }}" name="alt">
+                    @error('alt')
+                    <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
 
                 <button type="submit" class="btn btn-primary mt-3">Submit</button>
             </form>

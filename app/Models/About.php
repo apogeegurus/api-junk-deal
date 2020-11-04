@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class About extends Model
 {
-    protected $fillable = ['title', 'description', 'image'];
+    protected $fillable = ['title', 'description', 'image','alt'];
 
     protected $appends = ['image_path'];
 

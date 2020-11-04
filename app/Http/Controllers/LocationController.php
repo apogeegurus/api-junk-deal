@@ -64,7 +64,11 @@ class LocationController extends Controller
             'wiki_link',
             'lon',
             'lat',
-            'url'
+            'url',
+            'alt_main',
+            'alt_city_emblem',
+            'alt_banner_first',
+            'alt_banner_second'
         ]);
 
 
@@ -151,7 +155,11 @@ class LocationController extends Controller
             'wiki_link',
             'lon',
             'lat',
-            'url'
+            'url',
+            'alt_main',
+            'alt_city_emblem',
+            'alt_banner_first',
+            'alt_banner_second'
         ]);
 
         $mainImage    = $request->file('main_image');
@@ -248,6 +256,7 @@ class LocationController extends Controller
         $this->validate($request, [
             'file' => 'nullable|array',
             'file.*' => 'image',
+            'alt' => 'nullable|max:20|string',
             'hex_code' => 'nullable'
         ]);
 
@@ -264,7 +273,8 @@ class LocationController extends Controller
                 $fileName = Str::random(32) . ".{$ext}";
                 LocationGallery::query()->create([
                     'location_id' => $location,
-                    'file_name'  => $fileName
+                    'file_name'  => $fileName,
+                    'alt' => $request->alt
                 ]);
 
                 Storage::disk('public')->putFileAs("locations/gallery/{$location}", $file, $fileName);
@@ -308,7 +318,8 @@ class LocationController extends Controller
     {
         $this->validate($request, [
             'file' => 'required|array',
-            'file.*' => 'image'
+            'file.*' => 'image',
+            'alt' => 'nullable|max:20|string',
         ]);
 
         $files = $request->file('file');
@@ -318,7 +329,8 @@ class LocationController extends Controller
             $fileName = Str::random(32) . ".{$ext}";
             LocationSlider::query()->create([
                 'location_id' => $location,
-                'file_name'  => $fileName
+                'file_name'  => $fileName,
+                'alt' => $request->alt
             ]);
 
             Storage::disk('public')->putFileAs("locations/slider/{$location}", $file, $fileName);
@@ -389,13 +401,17 @@ class LocationController extends Controller
      */
     public function sliderUpdate(Request $request, LocationSlider $slider)
     {
-        Storage::delete('/public/locations/slider/' . $slider->location_id . '/' . $slider->file_name);
-        $file = $request->file('file');
-        $ext  = $file->getClientOriginalExtension();
-        $fileName = Str::random(32) . ".{$ext}";
+        if($request->hasFile('file')) {
+            Storage::delete('/public/locations/slider/' . $slider->location_id . '/' . $slider->file_name);
+            $file = $request->file('file');
+            $ext = $file->getClientOriginalExtension();
+            $fileName = Str::random(32) . ".{$ext}";
 
-        Storage::disk('public')->putFileAs("locations/slider/{$slider->location_id}", $file, $fileName);
-        $slider->update(['file_name' => $fileName]);
+            Storage::disk('public')->putFileAs("locations/slider/{$slider->location_id}", $file, $fileName);
+            $slider->update(['file_name' => $fileName, 'alt' => $request->alt]);
+        }else{
+            $slider->update([ 'alt' => $request->alt]);
+        }
 
         return redirect()->route('locations.slider', ['location' => $slider->location_id]);
     }
@@ -425,6 +441,7 @@ class LocationController extends Controller
         $this->validate($request, [
             'file' => 'nullable|array',
             'file.*' => 'image',
+            'alt' => 'nullable|max:20|string',
             'hex_code' => 'nullable'
         ]);
 
@@ -435,16 +452,23 @@ class LocationController extends Controller
                 'hex_code'  => $request->hex_code
             ]);
         } else {
-            Storage::delete('/public/locations/gallery/' . $gallery->location_id . '/' . $gallery->file_name);
+            if(!empty($files)) {
+                Storage::delete('/public/locations/gallery/' . $gallery->location_id . '/' . $gallery->file_name);
 
-            foreach ($files as $file) {
-                $ext = $file->getClientOriginalExtension();
-                $fileName = Str::random(32) . ".{$ext}";
+                foreach ($files as $file) {
+                    $ext = $file->getClientOriginalExtension();
+                    $fileName = Str::random(32) . ".{$ext}";
+                    $gallery->update([
+                        'file_name' => $fileName,
+                        'alt' => $request->alt
+                    ]);
+
+                    Storage::disk('public')->putFileAs("locations/gallery/{$gallery->location_id}", $file, $fileName);
+                }
+            }else{
                 $gallery->update([
-                    'file_name'  => $fileName
+                    'alt' => $request->alt
                 ]);
-
-                Storage::disk('public')->putFileAs("locations/gallery/{$gallery->location_id}", $file, $fileName);
             }
         }
 

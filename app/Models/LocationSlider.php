@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class LocationSlider extends Model
 {
-    protected $fillable = ['location_id', 'file_name', 'order'];
+    protected $fillable = ['location_id', 'file_name', 'order','alt'];
 
     protected $appends = ['path'];
 

@@ -43,7 +43,7 @@ class BlogController extends Controller
      */
     public function store(Store $request)
     {
-        $blogData = $request->only(['headline', 'sub_headline', 'description', 'author']);
+        $blogData = $request->only(['headline', 'sub_headline', 'description', 'author','alt']);
         $mainImage  = $request->file('mainImage');
         $ext = $mainImage->getClientOriginalExtension();
         $fileName = Str::random(32) . ".{$ext}";
@@ -86,7 +86,7 @@ class BlogController extends Controller
      */
     public function update(Update $request, Blog $blog)
     {
-        $blogData = $request->only(['headline', 'sub_headline', 'description', 'author']);
+        $blogData = $request->only(['headline', 'sub_headline', 'description', 'author','alt']);
         $mainImage  = $request->file('mainImage');
 
 

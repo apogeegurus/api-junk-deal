@@ -3,34 +3,35 @@
 @section('headline')
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Sliders</h1>
+        <h1 class="h3 mb-0 text-gray-800">Gallery</h1>
 
-        <a class="btn btn-success" href="{{ route('sliders.index') }}">Sliders</a>
+        <a class="btn btn-success" href="{{ route('services.index') }}">Services</a>
     </div>
 @endsection
 
-
 @section('content')
+
     <div class="card shadow mb-4 col-12">
         <div class="card-body">
-            <form action="{{ route('sliders.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('services.gallery.store', ['service' => request()->segment(2) ]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="form-group">
-                    <label>Image</label>
-                    <div class="input-group mb-3">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="mainImage" aria-describedby="inputGroupFileAddon01" name="file">
-                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                        </div>
+                    <div class="upload--block">
+                        <input type="file" name="gallery[]" class="d-none" id="gallery" multiple accept="image/x-png,image/gif,image/jpeg">
+                        <label for="gallery">
+                            <i class="fas fa-upload"></i>
+                            Please Select Gallery Images
+                        </label>
                     </div>
-                    <div id="mainImageAvatar"></div>
 
-                    @error('file')
-                        <span class="text-danger" role="alert">
-                            <strong>{{ $message }}</strong>
+                    @error('gallery')
+                    <span class="text-danger" role="alert">
+                                <strong>{{ $message }}</strong>
                         </span>
                     @enderror
+
+                    <div id="gallery--photos__upload"></div>
                 </div>
                 <div class="form-group">
                     <label for="alt">Alt</label>
@@ -46,11 +47,12 @@
             </form>
         </div>
     </div>
+
 @endsection
-
-
 @push('js')
-    <script type="text/javascript">
+    <script>
+
+
         function readURL(file) {
             return new Promise((resolve, reject) => {
                 var reader = new FileReader();
@@ -67,12 +69,16 @@
             });
         }
 
-
-        $('#mainImage').change(function () {
-            $('#mainImageAvatar').html('');
-            readURL(this.files[0]).then(url => {
-                $('#mainImageAvatar').append(`<img src="${url}"  alt=""/>`);
-            })
-        })
+        $("#gallery").change(function() {
+            let gallerySection = $('#gallery--photos__upload');
+            gallerySection.html('');
+            let files = this.files;
+            filesSize = files.length;
+            for(let i = 0; i < filesSize; i++) {
+                readURL(files[i]).then((urlImage) => {
+                    gallerySection.append(`<img src="${urlImage}"  alt=""/>`);
+                });
+            }
+        });
     </script>
 @endpush

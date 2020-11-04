@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Blog extends Model
 {
-    protected $fillable = ['headline', 'sub_headline', 'author', 'description', 'main_image', 'slug'];
+    protected $fillable = ['headline', 'sub_headline', 'author', 'description', 'main_image', 'slug','alt'];
     use Sluggable;
 
     protected $appends = ['main_image_path'];

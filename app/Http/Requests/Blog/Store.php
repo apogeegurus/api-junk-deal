@@ -29,6 +29,7 @@ class Store extends FormRequest
             'author' => 'required|max:100|string',
             'description' => 'required|string',
             'mainImage' => 'required|image|max:4086',
+            'alt' => 'nullable|max:20|string',
         ];
     }
 }

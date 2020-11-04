@@ -73,22 +73,32 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="upload--block">
-                        <input type="file" name="gallery[]" class="d-none" id="gallery" multiple accept="image/x-png,image/gif,image/jpeg">
-                        <label for="gallery">
-                            <i class="fas fa-upload"></i>
-                            Please Select Gallery Images
-                        </label>
-                    </div>
-
-                    @error('gallery')
-                        <span class="text-danger" role="alert">
+                    <label for="alt">Alt</label>
+                    <input type="text" class="form-control @error('alt') is-invalid @enderror" id="alt" value="{{ old('alt') }}" name="alt">
+                    @error('alt')
+                    <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-
-                    <div id="gallery--photos__upload"></div>
                 </div>
+
+{{--                <div class="form-group">--}}
+{{--                    <div class="upload--block">--}}
+{{--                        <input type="file" name="gallery[]" class="d-none" id="gallery" multiple accept="image/x-png,image/gif,image/jpeg">--}}
+{{--                        <label for="gallery">--}}
+{{--                            <i class="fas fa-upload"></i>--}}
+{{--                            Please Select Gallery Images--}}
+{{--                        </label>--}}
+{{--                    </div>--}}
+
+{{--                    @error('gallery')--}}
+{{--                        <span class="text-danger" role="alert">--}}
+{{--                                <strong>{{ $message }}</strong>--}}
+{{--                        </span>--}}
+{{--                    @enderror--}}
+
+{{--                    <div id="gallery--photos__upload"></div>--}}
+{{--                </div>--}}
 
 
                 <button type="submit" class="btn btn-primary mt-3">Submit</button>
@@ -115,18 +125,19 @@
                 reader.readAsDataURL(file);
             });
         }
+        //needs to delete
 
-        $("#gallery").change(function() {
-            let gallerySection = $('#gallery--photos__upload');
-            gallerySection.html('');
-            let files = this.files;
-            filesSize = files.length;
-            for(let i = 0; i < filesSize; i++) {
-                readURL(files[i]).then((urlImage) => {
-                    gallerySection.append(`<img src="${urlImage}"  alt=""/>`);
-                });
-            }
-        });
+        // $("#gallery").change(function() {
+        //     let gallerySection = $('#gallery--photos__upload');
+        //     gallerySection.html('');
+        //     let files = this.files;
+        //     filesSize = files.length;
+        //     for(let i = 0; i < filesSize; i++) {
+        //         readURL(files[i]).then((urlImage) => {
+        //             gallerySection.append(`<img src="${urlImage}"  alt=""/>`);
+        //         });
+        //     }
+        // });
 
 
         $('#mainImage').change(function () {

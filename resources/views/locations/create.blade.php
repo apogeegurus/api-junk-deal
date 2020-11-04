@@ -202,6 +202,15 @@
                         </span>
                     @enderror
                 </div>
+                <div class="form-group">
+                    <label for="alt">Alt </label>
+                    <input type="text" class="form-control @error('alt_city_emblem') is-invalid @enderror" id="alt_city_emblem" value="{{ old('alt_city_emblem') }}" name="alt_city_emblem">
+                    @error('alt_city_emblem')
+                    <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
 
                 <div class="form-group">
                     <label>Main Image</label>
@@ -215,6 +224,15 @@
 
                     @error('main_image')
                     <span class="text-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="alt">Alt Main Image</label>
+                    <input type="text" class="form-control @error('alt_main') is-invalid @enderror" id="alt_main" value="{{ old('alt_main') }}" name="alt_main">
+                    @error('alt_main')
+                    <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                         </span>
                     @enderror
@@ -237,6 +255,15 @@
                         </span>
                     @enderror
                 </div>
+                <div class="form-group">
+                    <label for="alt_banner_first">Alt(first banner)</label>
+                    <input type="text" class="form-control @error('alt_banner_first') is-invalid @enderror" id="alt_banner_first" value="{{ old('alt_banner_first') }}" name="alt_banner_first">
+                    @error('alt_banner_first')
+                    <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
 
 
                 <div class="form-group">
@@ -251,6 +278,15 @@
 
                     @error('banner_second')
                     <span class="text-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="alt_banner_second">Alt(second banner)</label>
+                    <input type="text" class="form-control @error('alt_banner_second') is-invalid @enderror" id="alt_banner_second" value="{{ old('alt_banner_second') }}" name="alt_banner_second">
+                    @error('alt_banner_second')
+                    <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                         </span>
                     @enderror

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ServiceSlider extends Model
 {
-    protected $fillable = ['service_id', 'file_name', 'order'];
+    protected $fillable = ['service_id', 'file_name', 'order','alt'];
 
     protected $appends = ['path'];
 

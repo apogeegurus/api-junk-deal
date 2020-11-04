@@ -48,7 +48,7 @@ class ServiceController extends Controller
      */
     public function store(Store $request)
     {
-        $serviceData = $request->only(['title', 'sub_title', 'short_description', 'long_description']);
+        $serviceData = $request->only(['title', 'sub_title', 'short_description', 'long_description','alt']);
         $mainImage  = $request->file('mainImage');
         $ext = $mainImage->getClientOriginalExtension();
         $fileName = Str::random(32) . ".{$ext}";
@@ -57,19 +57,19 @@ class ServiceController extends Controller
         $data = ['main_image' => $fileName] + $serviceData;
         $service = Service::query()->create($data);
 
-        $files = $request->file('gallery');
+//        $files = $request->file('gallery');
 
 
-        foreach ($files as $file) {
-            $ext = $file->getClientOriginalExtension();
-            $fileName = Str::random(32) . ".{$ext}";
-            ServiceImage::query()->create([
-                'service_id' => $service->id,
-                'file_name'  => $fileName
-            ]);
-
-            Storage::disk('public')->putFileAs("services/{$service->id}", $file, $fileName);
-        }
+//        foreach ($files as $file) {
+//            $ext = $file->getClientOriginalExtension();
+//            $fileName = Str::random(32) . ".{$ext}";
+//            ServiceImage::query()->create([
+//                'service_id' => $service->id,
+//                'file_name'  => $fileName
+//            ]);
+//
+//            Storage::disk('public')->putFileAs("services/{$service->id}", $file, $fileName);
+//        }
 
         return redirect()->route('services.index');
     }
@@ -114,7 +114,7 @@ class ServiceController extends Controller
     public function update(Update $request, $id)
     {
         $service = Service::query()->find($id);
-        $serviceData = $request->only(['title', 'sub_title', 'short_description', 'long_description']);
+        $serviceData = $request->only(['title', 'sub_title', 'short_description', 'long_description','alt']);
         $mainImage  = $request->file('mainImage');
 
 
@@ -128,21 +128,23 @@ class ServiceController extends Controller
         }
 
         $service->update($serviceData);
+//needs to delete
 
-        $files      = $request->file('gallery');
-
-        if(!empty($files)) {
-            foreach ($files as $file) {
-                $ext = $file->getClientOriginalExtension();
-                $fileName = Str::random(32) . ".{$ext}";
-                ServiceImage::query()->create([
-                    'service_id' => $id,
-                    'file_name'  => $fileName
-                ]);
-
-                Storage::disk('public')->putFileAs("services/{$service->id}", $file, $fileName);
-            }
-        }
+//        $files      = $request->file('gallery');
+//
+//        if(!empty($files)) {
+//            foreach ($files as $file) {
+//                $ext = $file->getClientOriginalExtension();
+//                $fileName = Str::random(32) . ".{$ext}";
+//                ServiceImage::query()->create([
+//                    'service_id' => $id,
+//                    'file_name'  => $fileName
+//                ]);
+//
+//                Storage::disk('public')->putFileAs("services/{$service->id}", $file, $fileName);
+//            }
+//
+//        }
 
         return redirect()->route('services.index');
     }
@@ -203,7 +205,8 @@ class ServiceController extends Controller
     {
         $this->validate($request, [
             'file' => 'required|array',
-            'file.*' => 'image'
+            'file.*' => 'image',
+            'alt' => 'nullable|max:20|string',
         ]);
 
         $files = $request->file('file');
@@ -213,7 +216,8 @@ class ServiceController extends Controller
             $fileName = Str::random(32) . ".{$ext}";
             ServiceSlider::query()->create([
                 'service_id' => $service,
-                'file_name'  => $fileName
+                'file_name'  => $fileName,
+                'alt' => $request->alt
             ]);
 
             Storage::disk('public')->putFileAs("services/slider/{$service}", $file, $fileName);
@@ -282,14 +286,96 @@ class ServiceController extends Controller
      */
     public function updateSlider(Request $request, ServiceSlider $slider)
     {
-        Storage::disk('public')->delete('/services/slider/' . $slider->service_id . '/' . $slider->file_name);
-        $file = $request->file('file');
-        $ext  = $file->getClientOriginalExtension();
-        $fileName = Str::random(32) . ".{$ext}";
+        $this->validate($request, [
+            'file.*' => 'nullable|image',
+            'alt' => 'nullable|max:20|string',
+        ]);
+        $files      = $request->file('file');
 
-        Storage::disk('public')->putFileAs("services/slider/{$slider->service_id}", $file, $fileName);
-        $slider->update(['file_name' => $fileName]);
+
+        if(!empty($files)) {
+            Storage::disk('public')->delete('/services/slider/' . $slider->service_id . '/' . $slider->file_name);
+            $file = $request->file('file');
+            $ext  = $file->getClientOriginalExtension();
+            $fileName = Str::random(32) . ".{$ext}";
+
+            Storage::disk('public')->putFileAs("services/slider/{$slider->service_id}", $file, $fileName);
+            $slider->update(['file_name' => $fileName]);
+        }
+        if($request->alt){
+            $slider->update([
+                'alt'=> $request->alt
+            ]);
+        }
+
 
         return redirect()->route('services.slider', ['service' => $slider->service_id]);
+    }
+
+    public function galleryIndex (Request $request, $service){
+        $galleries = ServiceImage::query()->where('service_id', '=', $service)->get();
+        return view('services.gallery.index', compact('galleries'));
+    }
+
+    public function galleryCreate (){
+        return view('services.gallery.create');
+    }
+
+    public function galleryStore(Request $request, $service)
+    {
+
+
+        $files = $request->file('gallery');
+
+        if(!empty($files)) {
+            foreach ($files as $file) {
+                $ext = $file->getClientOriginalExtension();
+                $fileName = Str::random(32) . ".{$ext}";
+                ServiceImage::query()->create([
+                    'service_id' => $service,
+                    'file_name'  => $fileName,
+                    'alt' => $request->alt
+                ]);
+
+                Storage::disk('public')->putFileAs("services/{$service}", $file, $fileName);
+            }
+        }
+        return redirect()->route('services.gallery', ['service' => $service]);
+    }
+
+    public function galleryEdit(ServiceImage $gallery)
+    {
+        return view('services.gallery.edit', compact('gallery'));
+    }
+
+    public function galleryUpdate(Request $request, ServiceImage $gallery)
+    {
+        $this->validate($request, [
+            'file' => 'nullable|array',
+            'file.*' => 'image',
+            'alt' => 'nullable|max:20|string',
+        ]);
+        $files      = $request->file('file');
+
+
+        if(!empty($files)) {
+            Storage::delete('/public/services/' . $gallery->service_id . '/' . $gallery->file_name);
+            foreach ($files as $file) {
+                $ext = $file->getClientOriginalExtension();
+                $fileName = Str::random(32) . ".{$ext}";
+                $gallery->update([
+                    'file_name'  => $fileName,
+                ]);
+
+                Storage::disk('public')->putFileAs("services/{$gallery->service_id}", $file, $fileName);
+            }
+        }
+        if($request->alt) {
+            $gallery->update([
+                'alt' => $request->alt
+            ]);
+        }
+
+        return redirect()->route('services.gallery', ['service' => $gallery->service_id]);
     }
 }

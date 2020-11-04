@@ -28,9 +28,11 @@ class Store extends FormRequest
             'sub_title' => 'required|max:80|string',
             'short_description' => 'required|min:60|max:500|string',
             'long_description' => 'required|min:255|string',
-            'gallery' => 'required|array',
-            'gallery.*' => 'required|image|max:4086',
+            //needs to delete
+//            'gallery' => 'required|array',
+//            'gallery.*' => 'required|image|max:4086',
             'mainImage' => 'required|image|max:4086',
+            'alt' => 'max:20|string',
         ];
     }
 }

@@ -48,6 +48,10 @@ class Store extends FormRequest
             'main_image' => 'required|image|max:4086',
             'banner_first' => 'required|image|max:4086',
             'banner_second' => 'required|image|max:4086',
+            'alt_main' => 'nullable|max:20|string',
+            'alt_city_emblem'=>'nullable|max:20|string',
+            'alt_banner_first'=>'nullable|max:20|string',
+            'alt_banner_second'=>'nullable|max:20|string',
         ];
     }
 }

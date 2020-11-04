@@ -77,36 +77,46 @@
                         </span>
                     @enderror
                 </div>
-
                 <div class="form-group">
-                    <div class="upload--block">
-                        <input type="file" name="gallery[]" class="d-none" id="gallery" multiple accept="image/x-png,image/gif,image/jpeg">
-                        <label for="gallery">
-                            <i class="fas fa-upload"></i>
-                            Please Select Gallery Images
-                        </label>
-                    </div>
-
-                    @error('gallery')
-                        <span class="text-danger" role="alert">
-                            <strong>{{ $message }}</strong>
+                    <label for="alt">Alt</label>
+                    <input type="text" class="form-control @error('alt') is-invalid @enderror" id="alt" value="{{ $service->alt ?? old('alt') }}" name="alt">
+                    @error('alt')
+                    <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-
-                    <div id="gallery--photos__upload"></div>
-                    <p class="my-4">Gallery Images</p>
-                    <div id="gallery--photos__show">
-                        @foreach($service->gallery as $image)
-                            <div data-id="{{ $image->id }}">
-                                <img src="{{ $image->path }}" alt="">
-                                <a class="delete-image d-block" data-id="{{ $image->id }}">
-                                    <i class="fa fa-trash text-danger"></i>
-                                    Remove Image
-                                </a>
-                            </div>
-                        @endforeach
-                    </div>
                 </div>
+{{--                needs to delete--}}
+
+{{--                <div class="form-group">--}}
+{{--                    <div class="upload--block">--}}
+{{--                        <input type="file" name="gallery[]" class="d-none" id="gallery" multiple accept="image/x-png,image/gif,image/jpeg">--}}
+{{--                        <label for="gallery">--}}
+{{--                            <i class="fas fa-upload"></i>--}}
+{{--                            Please Select Gallery Images--}}
+{{--                        </label>--}}
+{{--                    </div>--}}
+
+{{--                    @error('gallery')--}}
+{{--                        <span class="text-danger" role="alert">--}}
+{{--                            <strong>{{ $message }}</strong>--}}
+{{--                        </span>--}}
+{{--                    @enderror--}}
+
+{{--                    <div id="gallery--photos__upload"></div>--}}
+{{--                    <p class="my-4">Gallery Images</p>--}}
+{{--                    <div id="gallery--photos__show">--}}
+{{--                        @foreach($service->gallery as $image)--}}
+{{--                            <div data-id="{{ $image->id }}">--}}
+{{--                                <img src="{{ $image->path }}" alt="">--}}
+{{--                                <a class="delete-image d-block" data-id="{{ $image->id }}">--}}
+{{--                                    <i class="fa fa-trash text-danger"></i>--}}
+{{--                                    Remove Image--}}
+{{--                                </a>--}}
+{{--                            </div>--}}
+{{--                        @endforeach--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
 
                 <button type="submit" class="btn btn-primary mt-3">Submit</button>

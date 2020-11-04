@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Slider extends Model
 {
-    protected $fillable = ['file_name', 'order'];
+    protected $fillable = ['file_name', 'order','alt'];
 
     protected $appends = ['path'];
 

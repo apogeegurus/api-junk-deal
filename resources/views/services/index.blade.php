@@ -31,6 +31,7 @@
                                 <td>{{ $service->created_at }}</td>
                                 <td>
                                     <a href="{{ route('services.slider', ['service' => $service->id]) }}" class="btn btn-info">Slider</a>
+                                    <a href="{{ route('services.gallery', ['service' => $service->id]) }}" class="btn btn-info">Gallery</a>
                                     <a href="{{ route('services.show', ['service' => $service->id]) }}" class="btn btn-warning">Show</a>
                                     <a href="{{ route('services.edit', ['service' => $service->id]) }}" class="btn btn-success">Edit</a>
                                     <button class="btn btn-danger delete" data-id="{{ $service->id }}">Delete</button>

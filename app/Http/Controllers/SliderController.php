@@ -46,13 +46,18 @@ class SliderController extends Controller
      */
     public function update(Request $request, Slider $slider)
     {
-        Storage::delete('/public/sliders/' . $slider->file_name);
-        $file = $request->file('file');
-        $ext  = $file->getClientOriginalExtension();
-        $fileName = Str::random(32) . ".{$ext}";
+        if($request->hasFile('file')){
+            Storage::delete('/public/sliders/' . $slider->file_name);
+            $file = $request->file('file');
+            $ext  = $file->getClientOriginalExtension();
+            $fileName = Str::random(32) . ".{$ext}";
 
-        Storage::disk('public')->putFileAs("sliders", $file, $fileName);
-        $slider->update(['file_name' => $fileName]);
+            Storage::disk('public')->putFileAs("sliders", $file, $fileName);
+            $slider->update(['file_name' => $fileName,'alt' => $request->alt]);
+        }else{
+            $slider->update(['alt' => $request->alt]);
+        }
+
 
         return redirect()->route('sliders.index');
     }
@@ -80,7 +85,7 @@ class SliderController extends Controller
         $fileName = Str::random(32) . ".{$ext}";
 
         Storage::disk('public')->putFileAs("sliders", $file, $fileName);
-        Slider::query()->create(['file_name' => $fileName]);
+        Slider::query()->create(['file_name' => $fileName,'alt' => $request->alt]);
 
         return redirect()->route('sliders.index');
     }

@@ -21,7 +21,7 @@
                     <label>Image</label>
                     <div class="input-group mb-3">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="mainImage" aria-describedby="inputGroupFileAddon01" name="file" multiple>
+                            <input type="file" class="custom-file-input" id="mainImage" aria-describedby="inputGroupFileAddon01" name="file" >
                             <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                         </div>
                     </div>
@@ -32,6 +32,15 @@
                     @error('file')
                     <span class="text-danger" role="alert">
                             <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="alt">Alt</label>
+                    <input type="text" class="form-control @error('alt') is-invalid @enderror" id="alt" value="{{ $slider->alt ?? old('alt') }}" name="alt">
+                    @error('alt')
+                    <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
                         </span>
                     @enderror
                 </div>

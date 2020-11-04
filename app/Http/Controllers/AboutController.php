@@ -74,7 +74,7 @@ class AboutController extends Controller
      */
     public function update(Update $request, About $about)
     {
-        $aboutData = $request->only(['title', 'description']);
+        $aboutData = $request->only(['title', 'description','alt']);
         $image  = $request->file('image');
 
 

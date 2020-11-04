@@ -43,6 +43,13 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::resource('services', 'ServiceController');
+
+    Route::get('services/{service}/gallery', 'ServiceController@galleryIndex')->name('services.gallery');
+    Route::get('services/{service}/gallery/create', 'ServiceController@galleryCreate')->name('services.gallery.create');
+    Route::post('services/{service}/gallery', 'ServiceController@galleryStore')->name('services.gallery.store');
+    Route::get('services/gallery/{gallery}/edit', 'ServiceController@galleryEdit')->name('services.gallery.edit');
+    Route::put('services/gallery/{gallery}', 'ServiceController@galleryUpdate')->name('services.gallery.update');
+
     Route::resource('settings', 'SettingController');
     Route::resource('testimonials', 'TestimonialController');
     Route::post('sliders/order/change', 'SliderController@orderChange');
