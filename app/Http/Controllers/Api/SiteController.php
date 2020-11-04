@@ -61,7 +61,7 @@ class SiteController extends Controller
     public function indexSlider()
     {
         $sliders = Slider::query()
-            ->select('id', 'file_name')
+            ->select('id', 'file_name','alt')
             ->orderBy('order', 'ASC')
             ->get();
 

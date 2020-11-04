@@ -14,7 +14,7 @@ class ServiceController extends Controller
     public function indexNames()
     {
         $services = Service::query()
-            ->select(['title', 'slug', 'main_image', 'short_description'])
+            ->select(['title', 'slug', 'main_image', 'short_description','alt'])
             ->get();
 
         return response()->json(['services' => $services]);

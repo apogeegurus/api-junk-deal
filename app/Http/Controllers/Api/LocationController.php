@@ -12,7 +12,7 @@ class LocationController extends Controller
     public function index()
     {
         $locations = Location::query()
-            ->select('city', 'main_image', 'sub_title', DB::raw("IFNULL(url, slug) as slug"))
+            ->select('city', 'main_image', 'sub_title','alt_main','alt_city_emblem', DB::raw("IFNULL(url, slug) as slug"))
             ->orderBy('created_at', 'DESC')
             ->paginate(20);
 
