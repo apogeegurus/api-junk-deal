@@ -70,8 +70,9 @@ class DashboardController extends Controller
         return response()->json(["success" => true]);
     }
 
-    public function exportQuotes(){
-        return Excel::download(new QuoteExport, 'quotes.xlsx');
-
+    public function exportQuotes()
+    {
+        $fileName = date("Y-m-d-H-i-s") . '_' . 'quotes.xlsx';
+        return Excel::download(new QuoteExport, $fileName)->deleteFileAfterSend();
     }
 }
