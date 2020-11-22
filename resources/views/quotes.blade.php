@@ -4,6 +4,8 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Quotes</h1>
+        <a href="{{route('quotes.export')}}" class="btn btn-success">Export </a>
+
     </div>
 @endsection
 

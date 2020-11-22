@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Quote extends Model
 {
@@ -24,5 +25,9 @@ class Quote extends Model
     public function getDateScheduledAttribute()
     {
         return Carbon::createFromFormat("Y-m-d", $this->attributes["date"])->format("F d Y");
+    }
+
+    public function getQuotes(){
+        return DB::table('quotes')->select('id','name','email','zip_code','description');
     }
 }

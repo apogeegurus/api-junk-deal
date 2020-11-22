@@ -27,6 +27,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('contact', 'DashboardController@contacts')->name('contact.index');
     Route::post('contact', 'DashboardController@contactReply')->name('contact.reply');
     Route::post('quotes', 'DashboardController@quoteReply')->name('quotes.reply');
+    Route::get('quotes/export', 'DashboardController@exportQuotes')->name('quotes.export');
     Route::delete('quotes/{id}', 'DashboardController@quoteDelete')->name('quotes.delete');
     Route::delete('services/images/{id}', 'ServiceController@destroyImage');
 

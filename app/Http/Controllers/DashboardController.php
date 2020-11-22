@@ -8,6 +8,8 @@ use App\Models\Contact;
 use App\Models\Quote;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\QuoteExport;
 
 class DashboardController extends Controller
 {
@@ -66,5 +68,10 @@ class DashboardController extends Controller
     public function quoteDelete($id) {
         Quote::query()->find($id)->delete();
         return response()->json(["success" => true]);
+    }
+
+    public function exportQuotes(){
+        return Excel::download(new QuoteExport, 'quotes.xlsx');
+
     }
 }
