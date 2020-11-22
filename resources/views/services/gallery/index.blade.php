@@ -50,7 +50,7 @@
                 })
 
                 $.ajax({
-                    url: "/services/order/change",
+                    url: "/services/order/change/gallery",
                     type: "POST",
                     data: {
                         _token: $("meta[name='csrf-token']").attr("content"),
