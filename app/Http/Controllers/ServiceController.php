@@ -48,7 +48,7 @@ class ServiceController extends Controller
      */
     public function store(Store $request)
     {
-        $serviceData = $request->only(['title', 'sub_title', 'short_description', 'long_description','alt']);
+        $serviceData = $request->only(['title', 'sub_title', 'short_description', 'long_description','alt', 'meta_description', 'meta_title']);
         $mainImage  = $request->file('mainImage');
         $ext = $mainImage->getClientOriginalExtension();
         $fileName = Str::random(32) . ".{$ext}";
@@ -114,7 +114,7 @@ class ServiceController extends Controller
     public function update(Update $request, $id)
     {
         $service = Service::query()->find($id);
-        $serviceData = $request->only(['title', 'sub_title', 'short_description', 'long_description','alt']);
+        $serviceData = $request->only(['title', 'sub_title', 'short_description', 'long_description','alt', 'meta_description',  'meta_title']);
         $mainImage  = $request->file('mainImage');
 
 

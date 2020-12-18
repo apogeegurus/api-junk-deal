@@ -202,6 +202,28 @@
                         </span>
                     @enderror
                 </div>
+
+
+                <div class="form-group">
+                    <label for="meta_description">Meta Description </label>
+                    <textarea class="form-control @error('meta_description') is-invalid @enderror" id="meta_description" name="meta_description">{{ old('meta_description') }}</textarea>
+                    @error('meta_description')
+                    <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="meta_title">Meta Title</label>
+                    <input type="text" class="form-control @error('meta_title') is-invalid @enderror" id="meta_title" value="{{ old('meta_title') }}" name="meta_title">
+                    @error('meta_title')
+                    <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
                 <div class="form-group">
                     <label for="alt">Alt </label>
                     <input type="text" class="form-control @error('alt_city_emblem') is-invalid @enderror" id="alt_city_emblem" value="{{ old('alt_city_emblem') }}" name="alt_city_emblem">

@@ -10,7 +10,7 @@ class Service extends Model
 {
     use Sluggable;
 
-    protected $fillable = ['title', 'slug', 'sub_title', 'short_description', 'long_description', 'main_image','alt'];
+    protected $fillable = ['title', 'slug', 'sub_title', 'short_description', 'long_description', 'main_image', 'alt', 'meta_description', 'meta_title'];
 
     protected $appends = ['main_image_path'];
 

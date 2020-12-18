@@ -52,6 +52,9 @@ class Store extends FormRequest
             'alt_city_emblem'=>'nullable|max:20|string',
             'alt_banner_first'=>'nullable|max:20|string',
             'alt_banner_second'=>'nullable|max:20|string',
+
+            'meta_description' => 'required|string',
+            'meta_title' => 'required|string',
         ];
     }
 }

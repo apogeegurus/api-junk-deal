@@ -33,6 +33,8 @@ class Store extends FormRequest
 //            'gallery.*' => 'required|image|max:4086',
             'mainImage' => 'required|image|max:4086',
             'alt' => 'max:20|string',
+            'meta_description' => 'required|string',
+            'meta_title' => 'required|string',
         ];
     }
 }

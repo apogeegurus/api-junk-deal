@@ -28,7 +28,7 @@ class ServiceController extends Controller
     public function show($slug)
     {
         $service = Service::query()
-            ->select('title', 'sub_title', 'short_description', 'long_description', 'main_image', 'id')
+            ->select('title', 'sub_title', 'short_description', 'long_description', 'main_image', 'id', 'meta_description', 'meta_title')
             ->with(['gallery' => function ($query) {
                 $query->orderBy("order", "ASC");
             }, 'sliders' => function ($query) {

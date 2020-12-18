@@ -28,7 +28,9 @@ class Update extends FormRequest
             'sub_headline' => 'required|max:200|string',
             'author' => 'required|max:100|string',
             'description' => 'required|string',
-            'mainImage' => 'required_without:mainImageUploaded|image|max:4086'
+            'mainImage' => 'required_without:mainImageUploaded|image|max:4086',
+            'meta_description' => 'required|string',
+            'meta_title' => 'required|string',
         ];
     }
 }

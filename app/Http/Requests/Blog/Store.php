@@ -30,6 +30,8 @@ class Store extends FormRequest
             'description' => 'required|string',
             'mainImage' => 'required|image|max:4086',
             'alt' => 'nullable|max:20|string',
+            'meta_description' => 'required|string',
+            'meta_title' => 'required|string',
         ];
     }
 }

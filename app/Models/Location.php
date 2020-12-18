@@ -12,7 +12,8 @@ class Location extends Model
 
     protected $fillable = ['city', 'title', 'sub_title', 'description', 'website',
         'city_phone','population', 'average_age', 'median_income', 'median_home_value', 'wiki_link', 'address', 'what_to_eat', 'where_to_go', 'city_emblem',
-        'weather', 'weather_icon', 'main_image', 'banner_first', 'banner_second', 'lat', 'lon', 'slug', 'url','alt_city_emblem','alt_main','alt_banner_first','alt_banner_second'];
+        'weather', 'weather_icon', 'main_image', 'banner_first', 'banner_second', 'lat', 'lon', 'slug', 'url','alt_city_emblem','alt_main','alt_banner_first','alt_banner_second',
+        'meta_description', 'meta_title'];
 
     protected $appends = ['main_image_path', 'banner_first_path', 'banner_second_path', 'city_emblem_path'];
 
