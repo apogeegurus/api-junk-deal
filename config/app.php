@@ -18,6 +18,7 @@ return [
 
     'openweather_api_key' => env('OPENWEATHER_API_KEY', null),
     'yelp_api_key' => env('YELP_API_KEY', null),
+    'smart_moving_provider_key' => env('SMART_MOVING_PROVIDER_KEY', null),
 
     /*
     |--------------------------------------------------------------------------

@@ -79,7 +79,7 @@ class SiteController extends Controller
 
         try {
             $client = new Client();
-            $providerKey = env('SMART_MOVING_PROVIDER_KEY');
+            $providerKey = config('app.smart_moving_provider_key');
             $response = $client->request("POST", "https://api.smartmoving.com/api/leads/from-provider/v2?providerKey=$providerKey", [
                 'headers'  => [
                     'Content-Type' => 'application/json'
