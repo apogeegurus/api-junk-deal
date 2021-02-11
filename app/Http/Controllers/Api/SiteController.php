@@ -78,33 +78,34 @@ class SiteController extends Controller
         $data['date'] = Carbon::createFromTimeString($data['date'])->format('Y-m-d');
 
         try {
-//            $client = new Client();
-//            $providerKey = env('SMART_MOVING_PROVIDER_KEY');
-//            $response = $client->request("POST", "https://api.smartmoving.com/api/leads/from-provider/v2?providerKey=$providerKey", [
-//                'headers'  => [
-//                    'Content-Type' => 'application/json'
-//                ],
-//                'form_params' => [
-//                    'FullName' => $data['name'],
-//                    'PhoneNumber' => $data['phone'],
-//                    'Email' => $data['email'],
-//                    'DestinationZip' => $data['zip_code'],
-//                    'MoveDate' => Carbon::createFromFormat('Y-m-d', $data['date'])->format('Ymd'),
-//                    'Notes' => $data['description']
-//                ]
-//            ]);
-//
-//            $statusCode = $response->getStatusCode();
-//            $response = json_decode($response->getBody(), true);
-//
-//            if($statusCode === 400)
-//                return response()->json(['message' => $response]);
+            $client = new Client();
+            $providerKey = env('SMART_MOVING_PROVIDER_KEY');
+            $response = $client->request("POST", "https://api.smartmoving.com/api/leads/from-provider/v2?providerKey=$providerKey", [
+                'headers'  => [
+                    'Content-Type' => 'application/json'
+                ],
+                'json' => [
+                    'FullName' => $data['name'],
+                    'PhoneNumber' => $data['phone'],
+                    'Email' => $data['email'],
+                    'DestinationZip' => $data['zip_code'],
+                    'MoveDate' => Carbon::createFromFormat('Y-m-d', $data['date'])->format('Ymd'),
+                    'Notes' => $data['description']
+                ]
+            ]);
+
+            $statusCode = $response->getStatusCode();
+            $response = json_decode($response->getBody(), true);
 
             $quote = Quote::query()->create($data);
             Mail::to($data['email'])
                 ->queue(new SubmitEmail($quote));
             Mail::to(config("app.admin_email"))
                 ->queue(new SubmitAdminEmail($quote));
+
+            if($statusCode === 400) {
+                return response()->json(['message' => $response]);
+            }
         } catch (\Exception $err) {
             Log::info($err->getMessage());
             return response()->json(['message' => 'Something wrong please try again.'], 400);
