@@ -70,7 +70,8 @@ class LocationController extends Controller
             'alt_banner_first',
             'alt_banner_second',
             'meta_description',
-            'meta_title'
+            'meta_title',
+            'places_around'
         ]);
 
 
@@ -163,7 +164,8 @@ class LocationController extends Controller
             'alt_banner_first',
             'alt_banner_second',
             'meta_description',
-            'meta_title'
+            'meta_title',
+            'places_around'
         ]);
 
         $mainImage    = $request->file('main_image');
