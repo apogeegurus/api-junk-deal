@@ -313,6 +313,16 @@
                         </span>
                     @enderror
                 </div>
+                
+                <div class="form-group">
+                    <label for="places_around">Places Around</label>
+                    <input type="text" class="form-control @error('places_around') is-invalid @enderror" id="places_around" value="{{ old('places_around') }}" name="places_around">
+                    @error('places_around')
+                    <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
 
                 <button type="submit" class="btn btn-primary mt-3">Submit</button>
             </form>
