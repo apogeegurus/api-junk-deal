@@ -76,6 +76,15 @@ class SiteController extends Controller
     {
         $data = $request->only(['name', 'email', 'phone', 'zip_code', 'date', 'description']);
         $data['date'] = Carbon::createFromTimeString($data['date'])->format('Y-m-d');
+        $utm = $request->only([
+            'UtmAdGroup',
+            'UtmCampaign',
+            'UtmContent',
+            'UtmCustomTracking',
+            'UtmKeyword',
+            'UtmMedium',
+            'UtmSource',
+        ]);
 
         try {
             $client = new Client();
@@ -91,7 +100,14 @@ class SiteController extends Controller
                     'ReferralSource' => 'Website',
                     'DestinationZip' => $data['zip_code'],
                     'MoveDate' => Carbon::createFromFormat('Y-m-d', $data['date'])->format('Ymd'),
-                    'Notes' => $data['description']
+                    'Notes' => $data['description'],
+                    'UtmAdGroup' => $utm['UtmAdGroup'],
+                    'UtmCampaign' => $utm['UtmCampaign'],
+                    'UtmContent' => $utm['UtmContent'],
+                    'UtmCustomTracking' => $utm['UtmCustomTracking'],
+                    'UtmKeyword' => $utm['UtmKeyword'],
+                    'UtmMedium' => $utm['UtmMedium'],
+                    'UtmSource' => $utm['UtmSource'],
                 ]
             ]);
 
