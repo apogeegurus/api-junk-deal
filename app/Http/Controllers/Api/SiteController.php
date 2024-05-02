@@ -98,7 +98,7 @@ class SiteController extends Controller
                     'PhoneNumber' => $data['phone'],
                     'Email' => $data['email'],
                     'ReferralSource' => 'Website',
-                    'DestinationZip' => $data['zip_code'],
+                    'OriginZip' => $data['zip_code'],
                     'MoveDate' => Carbon::createFromFormat('Y-m-d', $data['date'])->format('Ymd'),
                     'Notes' => $data['description'],
                     'UtmAdGroup' => $utm['UtmAdGroup'],
